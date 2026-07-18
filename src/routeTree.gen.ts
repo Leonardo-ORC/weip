@@ -19,6 +19,7 @@ import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EvidencePipelineRouteImport } from './routes/evidence.pipeline'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
@@ -70,6 +71,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EvidencePipelineRoute = EvidencePipelineRouteImport.update({
+  id: '/pipeline',
+  path: '/pipeline',
+  getParentRoute: () => EvidenceRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -78,10 +84,11 @@ export interface FileRoutesByFullPath {
   '/applications': typeof ApplicationsRoute
   '/dashboard': typeof DashboardRoute
   '/developers': typeof DevelopersRoute
-  '/evidence': typeof EvidenceRoute
+  '/evidence': typeof EvidenceRouteWithChildren
   '/platform': typeof PlatformRoute
   '/research': typeof ResearchRoute
   '/settings': typeof SettingsRoute
+  '/evidence/pipeline': typeof EvidencePipelineRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -90,10 +97,11 @@ export interface FileRoutesByTo {
   '/applications': typeof ApplicationsRoute
   '/dashboard': typeof DashboardRoute
   '/developers': typeof DevelopersRoute
-  '/evidence': typeof EvidenceRoute
+  '/evidence': typeof EvidenceRouteWithChildren
   '/platform': typeof PlatformRoute
   '/research': typeof ResearchRoute
   '/settings': typeof SettingsRoute
+  '/evidence/pipeline': typeof EvidencePipelineRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -103,10 +111,11 @@ export interface FileRoutesById {
   '/applications': typeof ApplicationsRoute
   '/dashboard': typeof DashboardRoute
   '/developers': typeof DevelopersRoute
-  '/evidence': typeof EvidenceRoute
+  '/evidence': typeof EvidenceRouteWithChildren
   '/platform': typeof PlatformRoute
   '/research': typeof ResearchRoute
   '/settings': typeof SettingsRoute
+  '/evidence/pipeline': typeof EvidencePipelineRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/research'
     | '/settings'
+    | '/evidence/pipeline'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/research'
     | '/settings'
+    | '/evidence/pipeline'
   id:
     | '__root__'
     | '/'
@@ -145,6 +156,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/research'
     | '/settings'
+    | '/evidence/pipeline'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -154,7 +166,7 @@ export interface RootRouteChildren {
   ApplicationsRoute: typeof ApplicationsRoute
   DashboardRoute: typeof DashboardRoute
   DevelopersRoute: typeof DevelopersRoute
-  EvidenceRoute: typeof EvidenceRoute
+  EvidenceRoute: typeof EvidenceRouteWithChildren
   PlatformRoute: typeof PlatformRoute
   ResearchRoute: typeof ResearchRoute
   SettingsRoute: typeof SettingsRoute
@@ -232,8 +244,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/evidence/pipeline': {
+      id: '/evidence/pipeline'
+      path: '/pipeline'
+      fullPath: '/evidence/pipeline'
+      preLoaderRoute: typeof EvidencePipelineRouteImport
+      parentRoute: typeof EvidenceRoute
+    }
   }
 }
+
+interface EvidenceRouteChildren {
+  EvidencePipelineRoute: typeof EvidencePipelineRoute
+}
+
+const EvidenceRouteChildren: EvidenceRouteChildren = {
+  EvidencePipelineRoute: EvidencePipelineRoute,
+}
+
+const EvidenceRouteWithChildren = EvidenceRoute._addFileChildren(
+  EvidenceRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -242,7 +273,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApplicationsRoute: ApplicationsRoute,
   DashboardRoute: DashboardRoute,
   DevelopersRoute: DevelopersRoute,
-  EvidenceRoute: EvidenceRoute,
+  EvidenceRoute: EvidenceRouteWithChildren,
   PlatformRoute: PlatformRoute,
   ResearchRoute: ResearchRoute,
   SettingsRoute: SettingsRoute,
