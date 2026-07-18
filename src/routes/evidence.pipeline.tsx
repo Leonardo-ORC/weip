@@ -54,7 +54,7 @@ function PipelinePage() {
         </div>
       </Section>
 
-      <Section variant="muted">
+      <Section tone="muted">
         <div className="flex flex-col gap-10">
           <SectionHeader
             eyebrow="Pipeline stages"
