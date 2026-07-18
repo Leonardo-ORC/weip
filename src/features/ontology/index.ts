@@ -1,0 +1,4 @@
+/**
+ * ontology — module entry.
+ */
+export {};
