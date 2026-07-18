@@ -1,0 +1,4 @@
+/**
+ * intelligence — module entry.
+ */
+export {};

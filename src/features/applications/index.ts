@@ -1,0 +1,4 @@
+/**
+ * applications — module entry.
+ */
+export {};
