@@ -25,12 +25,13 @@ export function Footer() {
                   {section.items.map((item) => (
                     <li key={item.to}>
                       <Link
-                        to={item.to}
+                        to={item.to as never}
                         className="text-foreground/80 transition-colors hover:text-foreground"
                       >
                         {item.label}
                       </Link>
                     </li>
+
                   ))}
                 </ul>
               </div>

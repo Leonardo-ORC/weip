@@ -41,7 +41,7 @@ export function Navbar() {
           {PRIMARY_NAV.map((l) => (
             <Link
               key={l.to}
-              to={l.to}
+              to={l.to as never}
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
             >
@@ -49,6 +49,7 @@ export function Navbar() {
             </Link>
           ))}
         </nav>
+
 
         <div className="flex items-center gap-3">
           <Link
@@ -82,13 +83,14 @@ export function Navbar() {
                 {PRIMARY_NAV.map((l) => (
                   <Link
                     key={l.to}
-                    to={l.to}
+                    to={l.to as never}
                     className="rounded-lg px-3 py-3 text-lg font-medium text-foreground transition-colors hover:bg-secondary"
                     activeProps={{ className: "bg-secondary" }}
                   >
                     {l.label}
                   </Link>
                 ))}
+
                 <div className="mt-6 border-t border-hairline pt-6">
                   <Link
                     to="/dashboard"
