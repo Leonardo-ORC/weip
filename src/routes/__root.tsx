@@ -91,11 +91,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "A scientific operating system that turns fragmented evidence into structured, explainable intelligence.",
+          "WEIP transforms fragmented scientific publications, clinical trials and regulatory evidence into structured, explainable intelligence for women's hormonal health research.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@weip" },
+      { name: "twitter:title", content: "WEIP — The intelligence layer for women's clinical evidence" },
+      { name: "twitter:description", content: "WEIP transforms fragmented scientific publications, clinical trials and regulatory evidence into structured, explainable intelligence for women's hormonal health research." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8bb7804b-aaec-41e3-8da3-023582fbc3c7/id-preview-a48465b8--995521ec-4355-44c3-8c2f-fa439ea3d0c5.lovable.app-1784413826848.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8bb7804b-aaec-41e3-8da3-023582fbc3c7/id-preview-a48465b8--995521ec-4355-44c3-8c2f-fa439ea3d0c5.lovable.app-1784413826848.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
