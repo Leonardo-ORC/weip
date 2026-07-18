@@ -775,8 +775,6 @@ function HomePage() {
         <FuturePlatform />
         <Architecture />
         <WhyWeip />
-        <Inspirational />
-        <FinalCTA />
       </main>
       <Footer />
     </div>
