@@ -1,10 +1,6 @@
-import type { FileRoutesByPath } from "@tanstack/react-router";
-
-export type AppRoute = keyof FileRoutesByPath;
-
 export interface NavItem {
   label: string;
-  to: AppRoute;
+  to: string;
   description?: string;
 }
 
