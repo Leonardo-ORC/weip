@@ -1,16 +1,25 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { LayoutDashboard, LogOut, Menu, X } from "lucide-react";
 import { PRIMARY_NAV } from "@/constants/navigation";
 import { WeipMark } from "./weip-mark";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@/components/common/visually-hidden";
+import { useAuth } from "@/features/auth";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { isAuthenticated, signOut, profile, user } = useAuth();
+  const initials =
+    (profile?.fullName || user?.email || "")
+      .split(/\s+|@/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((s) => s[0]?.toUpperCase())
+      .join("") || "WE";
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 12);
@@ -52,18 +61,46 @@ export function Navbar() {
 
 
         <div className="flex items-center gap-3">
-          <Link
-            to="/dashboard"
-            className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline"
-          >
-            Sign in
-          </Link>
-          <Link
-            to="/dashboard"
-            className="hidden items-center justify-center gap-1.5 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-background shadow-soft transition hover:opacity-90 md:inline-flex"
-          >
-            Request early access
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <Link
+                to="/app/dashboard"
+                className="hidden items-center gap-1.5 rounded-full border border-hairline px-4 py-2 text-sm text-foreground transition hover:bg-secondary sm:inline-flex"
+              >
+                <LayoutDashboard className="h-4 w-4" /> Workspace
+              </Link>
+              <Link
+                to="/app/dashboard"
+                aria-label="Open workspace"
+                className="grid h-9 w-9 place-items-center rounded-full bg-ink font-mono text-[11px] font-medium text-background sm:hidden"
+              >
+                {initials}
+              </Link>
+              <button
+                type="button"
+                onClick={() => void signOut()}
+                aria-label="Sign out"
+                className="hidden h-9 w-9 items-center justify-center rounded-full border border-hairline text-muted-foreground transition hover:text-foreground md:inline-flex"
+              >
+                <LogOut className="h-4 w-4" />
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline"
+              >
+                Sign in
+              </Link>
+              <Link
+                to="/register"
+                className="hidden items-center justify-center gap-1.5 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-background shadow-soft transition hover:opacity-90 md:inline-flex"
+              >
+                Request early access
+              </Link>
+            </>
+          )}
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
@@ -91,13 +128,39 @@ export function Navbar() {
                   </Link>
                 ))}
 
-                <div className="mt-6 border-t border-hairline pt-6">
-                  <Link
-                    to="/dashboard"
-                    className="inline-flex w-full items-center justify-center rounded-full bg-ink px-5 py-3 text-sm font-medium text-background"
-                  >
-                    Request early access
-                  </Link>
+                <div className="mt-6 flex flex-col gap-2 border-t border-hairline pt-6">
+                  {isAuthenticated ? (
+                    <>
+                      <Link
+                        to="/app/dashboard"
+                        className="inline-flex w-full items-center justify-center rounded-full bg-ink px-5 py-3 text-sm font-medium text-background"
+                      >
+                        Open workspace
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => void signOut()}
+                        className="inline-flex w-full items-center justify-center rounded-full border border-hairline px-5 py-3 text-sm text-foreground"
+                      >
+                        Sign out
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        to="/register"
+                        className="inline-flex w-full items-center justify-center rounded-full bg-ink px-5 py-3 text-sm font-medium text-background"
+                      >
+                        Request early access
+                      </Link>
+                      <Link
+                        to="/login"
+                        className="inline-flex w-full items-center justify-center rounded-full border border-hairline px-5 py-3 text-sm text-foreground"
+                      >
+                        Sign in
+                      </Link>
+                    </>
+                  )}
                 </div>
               </nav>
             </SheetContent>
