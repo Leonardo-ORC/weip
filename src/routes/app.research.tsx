@@ -1,16 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FlaskConical } from "lucide-react";
-import { AppPagePlaceholder } from "@/components/app/app-page-placeholder";
+import { AppPage } from "@/components/app/app-page";
+import { ResearchWorkspace, useResearchWorkspace } from "@/features/research";
 
 export const Route = createFileRoute("/app/research")({
-  head: () => ({ meta: [{ title: "Research — WEIP" }, { name: "robots", content: "noindex" }] }),
-  component: () => (
-    <AppPagePlaceholder
-      eyebrow="Research"
-      title="Discovery workspace"
-      subtitle="Hypotheses, cohorts, and evidence-backed exploration."
-      breadcrumbs={[{ label: "Intelligence", to: "/app/dashboard" }, { label: "Research" }]}
-      icon={FlaskConical}
-    />
-  ),
+  head: () => ({
+    meta: [
+      { title: "Research Workspace — WEIP" },
+      {
+        name: "description",
+        content:
+          "Organize scientific investigations, questions, hypotheses and evidence collections.",
+      },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: ResearchPage,
 });
+
+function ResearchPage() {
+  const state = useResearchWorkspace();
+  return (
+    <AppPage
+      breadcrumbs={[{ label: "Workspace", to: "/app/dashboard" }, { label: "Research" }]}
+      eyebrow="Research"
+      title="Research Workspace"
+      subtitle="Your operating system for scientific investigations."
+    >
+      <ResearchWorkspace state={state} />
+    </AppPage>
+  );
+}
