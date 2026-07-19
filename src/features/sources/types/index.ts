@@ -142,6 +142,7 @@ export type PipelineStageId =
   | "search"
   | "validate"
   | "normalize"
+  | "extract"
   | "transform"
   | "store"
   | "expose";
