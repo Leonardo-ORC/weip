@@ -17,6 +17,7 @@ import {
   RoadmapWidget,
   useDashboardData,
 } from "@/features/dashboard";
+import { OntologyReadyWidget } from "@/features/ontology";
 
 export const Route = createFileRoute("/app/dashboard")({
   head: () => ({
