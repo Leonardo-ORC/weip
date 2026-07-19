@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
 import { WeipMark } from "@/components/layout/weip-mark";
 
 interface AuthShellProps {
@@ -18,9 +19,18 @@ export function AuthShell({ eyebrow, title, description, children, footer }: Aut
         className="pointer-events-none absolute inset-0 grid-pattern fade-mask-b opacity-40"
       />
       <div className="relative flex w-full flex-col justify-between px-6 py-8 lg:w-[46%] lg:px-16">
-        <Link to="/" className="text-foreground" aria-label="Home">
-          <WeipMark />
-        </Link>
+        <div className="flex items-center justify-between">
+          <Link to="/" className="text-foreground" aria-label="Home">
+            <WeipMark />
+          </Link>
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition hover:text-foreground"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Back to home
+          </Link>
+        </div>
         <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-16">
           <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
             {eyebrow}
