@@ -162,5 +162,8 @@ export interface EvidenceExtractionMetadata {
   readonly engineVersion: string;
   readonly strategies: readonly ExtractionMethod[];
   readonly aiProviderId: string | null;
+  readonly aiModel: string | null;
+  readonly aiExtractedAt: string | null;
+  readonly aiConfidence: number | null;
   readonly durationMs: number;
 }
