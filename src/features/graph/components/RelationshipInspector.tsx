@@ -1,6 +1,6 @@
 import { KnowledgeGraphService } from "../services/knowledge-graph-service";
 import { SemanticIndexService } from "../services/semantic-index";
-import type { GraphNode } from "../types";
+import type { GraphEdgeType, GraphNode } from "../types";
 import { EdgeTypeBadge, NodeTypeBadge } from "./GraphBadges";
 
 interface Props {
