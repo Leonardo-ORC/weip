@@ -477,6 +477,60 @@ function Footer() {
 }
 
 /* ---------------------------------------------------------------- */
+/* Guided Journey (landing entry)                                    */
+/* ---------------------------------------------------------------- */
+
+function GuidedJourneyBanner() {
+  const steps = [
+    "Sources",
+    "Extraction",
+    "Evidence",
+    "Graph",
+    "Intelligence",
+    "Drug Score",
+    "Project",
+  ];
+  return (
+    <section id="journey" className="border-y border-hairline bg-secondary/40 py-20 lg:py-24">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-5">
+            <Eyebrow>Guided Research Journey</Eyebrow>
+            <h2 className="font-display mt-6 text-4xl leading-[1.05] tracking-tight lg:text-5xl text-balance">
+              See the platform in{" "}
+              <span className="italic text-royal">five minutes.</span>
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
+              A curated scientific project — from imported studies to a
+              calculated Drug Score — running inside the real platform, not a
+              tutorial.
+            </p>
+            <div className="mt-8">
+              <Button href="/app/journey">Start guided journey</Button>
+            </div>
+          </div>
+          <div className="lg:col-span-7">
+            <ol className="grid gap-3">
+              {steps.map((s, i) => (
+                <li
+                  key={s}
+                  className="flex items-center gap-4 rounded-2xl border border-hairline bg-background/70 px-5 py-3.5 shadow-soft"
+                >
+                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-display text-base text-foreground">{s}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------------- */
 /* Page                                                              */
 /* ---------------------------------------------------------------- */
 
@@ -489,6 +543,7 @@ function HomePage() {
         <Mission />
         <Approach />
         <DrugScore />
+        <GuidedJourneyBanner />
         <WhyMatters />
       </main>
       <Footer />
