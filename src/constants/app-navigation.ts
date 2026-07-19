@@ -14,6 +14,7 @@ import {
   UserRound,
   Radio,
   GitBranch,
+  Sparkles,
 } from "lucide-react";
 
 export interface AppNavItem {
@@ -51,6 +52,7 @@ export const APP_NAV_SECTIONS: AppNavSection[] = [
   {
     title: "Supporting tools",
     items: [
+      { label: "Guided Journey", to: "/app/journey", icon: Sparkles, badge: "Demo" },
       { label: "Collections", to: "/app/collections", icon: Library },
       { label: "Ontology", to: "/app/ontology", icon: Network },
       { label: "Pipeline", to: "/app/pipeline", icon: Workflow },
