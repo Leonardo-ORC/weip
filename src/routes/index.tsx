@@ -57,6 +57,18 @@ function Button({
     variant === "primary"
       ? "bg-ink text-background hover:opacity-90 shadow-soft"
       : "text-foreground hover:bg-secondary border border-hairline";
+
+  if (href.startsWith("/")) {
+    return (
+      <Link to={href as never} className={`${base} ${styles}`}>
+        {children}
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+          <path d="M2.5 6h7M6 2.5l3.5 3.5L6 9.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </Link>
+    );
+  }
+
   return (
     <a href={href} className={`${base} ${styles}`}>
       {children}
@@ -104,13 +116,13 @@ function Nav() {
           ))}
         </nav>
         <div className="flex items-center gap-3">
-          <a
-            href="#early-access"
+          <Link
+            to="/login"
             className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline"
           >
             Sign in
-          </a>
-          <Button href="#early-access">Request early access</Button>
+          </Link>
+          <Button href="/register">Request early access</Button>
         </div>
       </div>
     </header>
@@ -149,7 +161,7 @@ function Hero() {
               starting with women's hormonal health.
             </p>
             <div className="animate-rise mt-10 flex flex-wrap items-center gap-3">
-              <Button href="#early-access">Request early access</Button>
+              <Button href="/register">Request early access</Button>
               <Button variant="ghost" href="#vision">
                 Read the vision
               </Button>
