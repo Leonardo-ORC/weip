@@ -9,6 +9,7 @@ const initialState: JourneyState = {
   currentStep: "sources",
   completed: [],
   startedAt: null,
+  focus: true,
 };
 
 let state: JourneyState = initialState;
@@ -23,7 +24,7 @@ function load(): JourneyState {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return initialState;
-    const parsed = JSON.parse(raw) as JourneyState;
+    const parsed = JSON.parse(raw) as Partial<JourneyState>;
     return { ...initialState, ...parsed };
   } catch {
     return initialState;
@@ -42,7 +43,6 @@ function persist(next: JourneyState) {
   listeners.forEach((l) => l());
 }
 
-// hydrate lazily on first subscribe (SSR-safe)
 let hydrated = false;
 function ensureHydrated() {
   if (hydrated || !isBrowser()) return;
@@ -66,6 +66,7 @@ export const journeyStore = {
       currentStep: "sources",
       completed: [],
       startedAt: new Date("2026-01-01T00:00:00Z").toISOString(),
+      focus: true,
     });
   },
   exit() {
@@ -76,6 +77,12 @@ export const journeyStore = {
   },
   reset() {
     persist(initialState);
+  },
+  setFocus(v: boolean) {
+    persist({ ...state, focus: v });
+  },
+  toggleFocus() {
+    persist({ ...state, focus: !state.focus });
   },
   goTo(id: JourneyStepId) {
     persist({ ...state, currentStep: id, active: true });
