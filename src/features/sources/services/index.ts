@@ -34,8 +34,9 @@ export interface IUnifiedHealthClient {
 }
 
 export const UnifiedSearchClient: IUnifiedSearchClient = {
-  search: (query) => unifiedSearch({ data: query }),
-  searchSingle: (source, query) => searchSingleSource({ data: { ...query, source } }),
+  search: (query) => unifiedSearch({ data: { ...query, sources: query.sources ? [...query.sources] : undefined } }),
+  searchSingle: (source, query) =>
+    searchSingleSource({ data: { ...query, sources: query.sources ? [...query.sources] : undefined, source } }),
 };
 
 export const UnifiedFetchClient: IUnifiedFetchClient = {
