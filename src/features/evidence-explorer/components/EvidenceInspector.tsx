@@ -68,8 +68,6 @@ export function EvidenceInspector({ evidence, bookmarked, comparing, onBookmark,
             {evidence.publication.journal} · {evidence.publication.year}
           </span>
         </div>
-      </div>
-
         {evidence.extraction ? (
           <div className="mt-4 flex flex-col gap-2">
             <EvidenceConfidenceBadge confidence={evidence.extraction.confidence} />
