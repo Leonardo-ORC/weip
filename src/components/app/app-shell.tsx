@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "./app-sidebar";
 import { AppTopNav } from "./app-topnav";
+import { JourneyBar } from "@/features/journey";
 
 export function AppShell({ children }: { children: ReactNode }) {
   return (
@@ -10,9 +11,10 @@ export function AppShell({ children }: { children: ReactNode }) {
         <AppSidebar />
         <SidebarInset className="flex min-w-0 flex-1 flex-col bg-background">
           <AppTopNav />
-          <main className="flex min-h-0 flex-1 flex-col">{children}</main>
+          <main className="flex min-h-0 flex-1 flex-col pb-40">{children}</main>
         </SidebarInset>
       </div>
+      <JourneyBar />
     </SidebarProvider>
   );
 }
