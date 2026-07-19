@@ -1,8 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { X, ChevronRight, Info, Sparkles, Eye, EyeOff, RotateCcw } from "lucide-react";
+import { X, Sparkles, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { feedback } from "@/lib/feedback";
 import { useJourney, journeyStore } from "../store";
 import { getStep } from "../steps";
