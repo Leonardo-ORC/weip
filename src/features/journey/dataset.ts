@@ -60,3 +60,37 @@ export const DEMO_DRUG_SCORE = {
     { label: "Outcome completeness", value: 69, note: "9 of 12 target outcomes covered" },
   ],
 } as const;
+
+/**
+ * Preset scientific scenario applied to every workspace when the
+ * Guided Research Journey is active. Ensures no form starts empty —
+ * researchers land on a fully configured investigation.
+ */
+export const DEMO_PRESET = {
+  // Scientific Sources workspace
+  sources: {
+    term: "Metformin PCOS",
+    condition: "Polycystic ovary syndrome",
+    drug: "Metformin",
+    disease: "",
+    author: "",
+    journal: "",
+    yearFrom: "2015",
+    yearTo: "2025",
+    sources: ["pubmed", "clinicaltrials", "openalex"] as const,
+    sort: "relevance" as const,
+    pageSize: 15,
+    autoSubmit: true,
+  },
+  // Evidence Explorer workspace
+  evidence: {
+    query: "Metformin",
+    drugs: ["Metformin"],
+    conditions: ["Polycystic ovary syndrome"],
+    hormonalContexts: ["reproductive"] as const,
+  },
+  // Research workspace
+  research: {
+    query: "Metformin PCOS",
+  },
+} as const;
