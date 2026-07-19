@@ -1,16 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppPage } from "@/components/app/app-page";
 import { OntologyWorkspace } from "@/features/ontology";
-import { IntelligencePanel } from "@/features/intelligence";
 
 export const Route = createFileRoute("/app/ontology")({
   head: () => ({
     meta: [
-      { title: "Ontology Workspace — WEIP" },
+      { title: "Ontology — WEIP" },
       {
         name: "description",
         content:
-          "Explore vocabularies, taxonomies, concepts and semantic relationships across Women's Hormonal Health.",
+          "Controlled vocabularies, taxonomies and semantic definitions for Women's Hormonal Health.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -21,20 +20,12 @@ export const Route = createFileRoute("/app/ontology")({
 function OntologyPage() {
   return (
     <AppPage
-      breadcrumbs={[{ label: "Intelligence", to: "/app/dashboard" }, { label: "Clinical Knowledge" }]}
-      eyebrow="Clinical Knowledge"
-      title="Clinical Knowledge Workspace"
-      subtitle="Trending concepts, semantic hotspots and emerging women's health areas — layered above the ontology explorer."
+      breadcrumbs={[{ label: "Workspace", to: "/app/dashboard" }, { label: "Ontology" }]}
+      eyebrow="Ontology"
+      title="Controlled vocabularies"
+      subtitle="Manage taxonomies, concepts and semantic definitions used across the platform."
     >
-      <div className="flex flex-col gap-10">
-        <IntelligencePanel
-          surface="ontology"
-          title="Clinical knowledge intelligence"
-          subtitle="Trending concepts, high-confidence relationships and emerging women's health areas."
-          limit={6}
-        />
-        <OntologyWorkspace />
-      </div>
+      <OntologyWorkspace />
     </AppPage>
   );
 }
