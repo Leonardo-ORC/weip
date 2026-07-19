@@ -41,7 +41,7 @@ export function JourneyEntryCard({ variant = "dashboard" }: Props) {
         Guided Research Journey
       </div>
       <h2 className="font-display mt-2 text-xl text-foreground md:text-2xl">
-        Experience the full scientific workflow in five minutes.
+        Experience the full scientific workflow in one minute.
       </h2>
       <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
         Walk through a real scientific project — from imported studies to a
