@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as PlatformRouteImport } from './routes/platform'
@@ -43,6 +44,11 @@ import { Route as AppCollectionsRouteImport } from './routes/app.collections'
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResearchRoute = ResearchRouteImport.update({
@@ -205,6 +211,7 @@ export interface FileRoutesByFullPath {
   '/platform': typeof PlatformRoute
   '/register': typeof RegisterRoute
   '/research': typeof ResearchRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
   '/app/collections': typeof AppCollectionsRoute
   '/app/dashboard': typeof AppDashboardRoute
@@ -236,6 +243,7 @@ export interface FileRoutesByTo {
   '/platform': typeof PlatformRoute
   '/register': typeof RegisterRoute
   '/research': typeof ResearchRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
   '/app/collections': typeof AppCollectionsRoute
   '/app/dashboard': typeof AppDashboardRoute
@@ -269,6 +277,7 @@ export interface FileRoutesById {
   '/platform': typeof PlatformRoute
   '/register': typeof RegisterRoute
   '/research': typeof ResearchRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
   '/app/collections': typeof AppCollectionsRoute
   '/app/dashboard': typeof AppDashboardRoute
@@ -303,6 +312,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/register'
     | '/research'
+    | '/reset-password'
     | '/settings'
     | '/app/collections'
     | '/app/dashboard'
@@ -334,6 +344,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/register'
     | '/research'
+    | '/reset-password'
     | '/settings'
     | '/app/collections'
     | '/app/dashboard'
@@ -366,6 +377,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/register'
     | '/research'
+    | '/reset-password'
     | '/settings'
     | '/app/collections'
     | '/app/dashboard'
@@ -399,6 +411,7 @@ export interface RootRouteChildren {
   PlatformRoute: typeof PlatformRoute
   RegisterRoute: typeof RegisterRoute
   ResearchRoute: typeof ResearchRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SettingsRoute: typeof SettingsRoute
 }
 
@@ -409,6 +422,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/research': {
@@ -681,6 +701,7 @@ const rootRouteChildren: RootRouteChildren = {
   PlatformRoute: PlatformRoute,
   RegisterRoute: RegisterRoute,
   ResearchRoute: ResearchRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
