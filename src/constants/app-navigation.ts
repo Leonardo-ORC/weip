@@ -45,7 +45,6 @@ export const APP_NAV_SECTIONS: AppNavSection[] = [
     items: [
       { label: "Evidence", to: "/app/evidence", icon: Database, description: "Scientific sources", badge: "Live" },
       { label: "Sources", to: "/app/sources", icon: Radio, description: "Unified providers", badge: "Live" },
-      { label: "PubMed", to: "/app/pubmed", icon: BookOpenText, description: "Live literature", badge: "Live" },
       { label: "Ontology", to: "/app/ontology", icon: Network, description: "Clinical concepts", badge: "Soon" },
       { label: "Research", to: "/app/research", icon: FlaskConical, description: "Discovery tools" },
       { label: "Pipeline", to: "/app/pipeline", icon: Workflow, description: "Processing" },
