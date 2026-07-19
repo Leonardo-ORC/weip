@@ -7,7 +7,6 @@ import {
 } from "@/features/evidence-explorer";
 import {
   EvidenceRecommendationList,
-  IntelligencePanel,
   ResearchIntelligenceService,
 } from "@/features/intelligence";
 
@@ -18,7 +17,7 @@ export const Route = createFileRoute("/app/evidence")({
       {
         name: "description",
         content:
-          "Search, filter, inspect and compare structured Evidence Objects across women's hormonal health.",
+          "Review, validate, filter and explore structured Evidence Objects — the canonical repository of scientific findings.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -37,7 +36,7 @@ function EvidencePage() {
       breadcrumbs={[{ label: "Workspace", to: "/app/dashboard" }, { label: "Evidence" }]}
       eyebrow="Evidence"
       title="Evidence Workspace"
-      subtitle="Structured scientific evidence, ready for inspection and comparison."
+      subtitle="The canonical repository of structured scientific findings. Review, validate, filter and compare Evidence Objects."
       contextPanelTitle="Evidence inspector"
       contextPanel={
         <div className="flex flex-col gap-6">
@@ -62,16 +61,7 @@ function EvidencePage() {
         </div>
       }
     >
-      <div className="flex flex-col gap-8">
-        <IntelligencePanel
-          surface="evidence"
-          title="Evidence intelligence"
-          subtitle="High-confidence evidence, conflicts and clinical relevance."
-          limit={4}
-        />
-        <EvidenceWorkspace state={state} />
-      </div>
+      <EvidenceWorkspace state={state} />
     </AppPage>
   );
 }
-

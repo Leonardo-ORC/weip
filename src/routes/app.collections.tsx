@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Library } from "lucide-react";
+import { Library, FolderPlus } from "lucide-react";
 import { AppPage } from "@/components/app/app-page";
-import { IntelligencePanel, ResearchIntelligenceService } from "@/features/intelligence";
+import { ResearchIntelligenceService } from "@/features/intelligence";
 
 export const Route = createFileRoute("/app/collections")({
   head: () => ({ meta: [{ title: "Collections — WEIP" }, { name: "robots", content: "noindex" }] }),
@@ -14,18 +14,13 @@ function CollectionsPage() {
   return (
     <AppPage
       eyebrow="Collections"
-      title="Curated evidence"
-      subtitle="Shareable sets of publications, trials and labels — now analysed for overlap, gaps and merges."
+      title="Organized scientific assets"
+      subtitle="Group evidence, publications and trials into shareable sets. Organization only — research lives in Projects."
       breadcrumbs={[{ label: "Workspace", to: "/app/dashboard" }, { label: "Collections" }]}
     >
-      <div className="flex flex-col gap-8">
-        <IntelligencePanel
-          surface="collections"
-          title="Collection intelligence"
-          subtitle="Duplicate detection, concept overlap, coverage gaps and suggested merges."
-          limit={6}
-        />
-
+      {collections.length === 0 ? (
+        <EmptyCollections />
+      ) : (
         <section className="rounded-2xl border border-hairline bg-background/60 p-6">
           <header className="mb-4 flex items-center gap-2">
             <Library className="h-4 w-4 text-primary" />
@@ -58,7 +53,20 @@ function CollectionsPage() {
             ))}
           </ul>
         </section>
-      </div>
+      )}
     </AppPage>
+  );
+}
+
+function EmptyCollections() {
+  return (
+    <section className="rounded-2xl border border-dashed border-hairline bg-background/40 p-10 text-center">
+      <FolderPlus className="mx-auto h-6 w-6 text-muted-foreground" />
+      <h3 className="font-display mt-3 text-base text-foreground">No collections yet</h3>
+      <p className="mx-auto mt-2 max-w-md text-xs text-muted-foreground">
+        Collections group Evidence Objects for sharing and reuse. Start by importing records in Scientific
+        Sources, then curate them from the Evidence Workspace.
+      </p>
+    </section>
   );
 }
