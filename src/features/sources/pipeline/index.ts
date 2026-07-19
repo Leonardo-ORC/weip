@@ -22,6 +22,8 @@ import type {
   UnifiedSearchResult,
 } from "../types";
 
+let runSequence = 0;
+
 export const PIPELINE_STAGES: readonly {
   id: PipelineStageId;
   label: string;
@@ -42,8 +44,10 @@ const ZERO_COUNTS: Record<SourceId, number> = {
 };
 
 export function createInitialRun(): PipelineRunState {
+  runSequence += 1;
+
   return {
-    runId: `run-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    runId: `run-${runSequence.toString().padStart(4, "0")}`,
     status: "idle",
     stages: PIPELINE_STAGES.map((s) => ({
       id: s.id,
