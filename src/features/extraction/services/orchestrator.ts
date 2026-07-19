@@ -114,11 +114,13 @@ export const ExtractionOrchestrator = {
     let womens = deterministicWomens;
     let study = deterministicStudy;
     let aiProviderId: AiProviderId | null = null;
+    let aiModel: string | null = null;
+    let aiExtractedAt: string | null = null;
+    let aiConfidence: number | null = null;
 
     if (options.aiProviderId) {
       const provider = AiExtractionProviderRegistry.get(options.aiProviderId);
       if (provider) {
-        aiProviderId = provider.metadata.id;
         try {
           const output = await provider.extract({
             title: record.title,
@@ -129,6 +131,10 @@ export const ExtractionOrchestrator = {
           womens = mergeWomens(deterministicWomens, output.womensHealth);
           study = mergeStudy(deterministicStudy, output.study);
           strategies.push("ai-assisted");
+          aiProviderId = provider.metadata.id;
+          aiModel = output.model ?? null;
+          aiExtractedAt = output.extractedAt ?? null;
+          aiConfidence = typeof output.confidence === "number" ? output.confidence : null;
         } catch {
           // AI failure never breaks extraction — deterministic wins.
         }
@@ -166,6 +172,9 @@ export const ExtractionOrchestrator = {
         engineVersion: EXTRACTION_ENGINE_VERSION,
         strategies,
         aiProviderId,
+        aiModel,
+        aiExtractedAt,
+        aiConfidence,
         durationMs: Math.round(t1 - t0),
       },
     };

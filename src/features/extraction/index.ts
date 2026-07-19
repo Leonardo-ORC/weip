@@ -9,6 +9,12 @@ export * from "./engine/study-extractor";
 export * from "./engine/text-utils";
 export * from "./registry/ai-provider-registry";
 export * from "./services";
+export { OpenAIExtractionProvider, OPENAI_PROVIDER_METADATA } from "./providers/openai-provider";
+
+// Auto-register built-in providers.
+import { AiExtractionProviderRegistry } from "./registry/ai-provider-registry";
+import { OpenAIExtractionProvider } from "./providers/openai-provider";
+AiExtractionProviderRegistry.register(OpenAIExtractionProvider);
 
 export { PanelShell } from "./components/PanelShell";
 export { EvidenceConfidenceBadge } from "./components/EvidenceConfidenceBadge";

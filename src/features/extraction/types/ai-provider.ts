@@ -44,6 +44,9 @@ export interface AiExtractionOutput {
   readonly entities?: BiomedicalEntitySet;
   readonly womensHealth?: WomensHealthConceptSet;
   readonly study?: Partial<StudyAttributes>;
+  readonly model?: string | null;
+  readonly extractedAt?: string | null;
+  readonly confidence?: number | null;
 }
 
 export interface AiExtractionProvider {
