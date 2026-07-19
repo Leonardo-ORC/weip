@@ -261,6 +261,56 @@ function AnchoredCoach({
   );
 }
 
+function JourneyContextCard({
+  stepNumber,
+  total,
+  title,
+  helper,
+  primaryLabel,
+  onPrimary,
+}: {
+  stepNumber: number;
+  total: number;
+  title: string;
+  helper: string;
+  primaryLabel: string;
+  onPrimary: () => void;
+}) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-hairline bg-surface-elevated/98 shadow-[0_24px_80px_-24px_color-mix(in_oklab,var(--indigo)_28%,transparent)] backdrop-blur-xl">
+      <div className="flex items-center justify-between gap-3 border-b border-hairline px-6 py-3">
+        <div className="flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/70">
+          <Sparkles className="h-3.5 w-3.5 text-primary" />
+          Step {stepNumber} of {total}
+        </div>
+        <button
+          type="button"
+          onClick={() => journeyStore.exit()}
+          className="rounded-full p-1.5 text-muted-foreground transition hover:text-foreground"
+          aria-label="Pause guided journey"
+          title="Pause — progress is saved"
+        >
+          <X className="h-3.5 w-3.5" />
+        </button>
+      </div>
+      <div className="p-6">
+        <h3 className="font-sans text-2xl font-semibold leading-tight tracking-tight text-foreground text-balance">
+          {title}
+        </h3>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground text-balance">
+          {helper}
+        </p>
+        <div className="mt-6 flex justify-end">
+          <Button size="sm" onClick={onPrimary} className="gap-2">
+            {primaryLabel}
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function DockedCallout({
   stepId,
   title,
@@ -281,32 +331,15 @@ function DockedCallout({
       aria-live="polite"
       className="pointer-events-none fixed inset-x-0 bottom-24 z-40 flex justify-end px-4 animate-fade-in"
     >
-      <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-2xl border border-hairline bg-background/95 shadow-elevated backdrop-blur-xl">
-        <div className="flex items-center justify-between gap-2 border-b border-hairline px-4 py-2">
-          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-            <Sparkles className="h-3 w-3 text-primary" />
-            Step {step.index} of {JOURNEY_STEPS.length} · {step.label}
-          </div>
-          <button
-            type="button"
-            onClick={() => journeyStore.exit()}
-            className="rounded-full p-1 text-muted-foreground transition hover:text-foreground"
-            aria-label="Pause guided journey"
-            title="Pause — progress is saved"
-          >
-            <X className="h-3 w-3" />
-          </button>
-        </div>
-        <div className="p-4">
-          <h3 className="font-display text-sm leading-snug text-foreground">{title}</h3>
-          <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{helper}</p>
-          <div className="mt-3 flex justify-end">
-            <Button size="sm" onClick={onPrimary} className="gap-2">
-              {primaryLabel}
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Button>
-          </div>
-        </div>
+      <div className="pointer-events-auto w-full max-w-md">
+        <JourneyContextCard
+          stepNumber={step.index}
+          total={JOURNEY_STEPS.length}
+          title={title}
+          helper={helper}
+          primaryLabel={primaryLabel}
+          onPrimary={onPrimary}
+        />
       </div>
     </div>
   );
