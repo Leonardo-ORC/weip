@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
 import { WeipMark } from "@/components/layout/weip-mark";
 
 interface AuthShellProps {
