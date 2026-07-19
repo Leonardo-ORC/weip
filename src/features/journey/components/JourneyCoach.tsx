@@ -175,12 +175,14 @@ export function JourneyCoach() {
 function AnchoredCoach({
   rect,
   stepId,
+  title,
   helper,
   primaryLabel,
   onPrimary,
 }: {
   rect: Rect;
   stepId: JourneyStepId;
+  title: string;
   helper: string;
   primaryLabel: string;
   onPrimary: () => void;
@@ -189,16 +191,16 @@ function AnchoredCoach({
   const stepNumber = step.index;
   const total = JOURNEY_STEPS.length;
 
-  // Position the tooltip: below by default, above if not enough room.
+  // Position the card: below by default, above if not enough room.
   const vw = typeof window !== "undefined" ? window.innerWidth : 1200;
   const vh = typeof window !== "undefined" ? window.innerHeight : 800;
-  const tooltipW = Math.min(360, vw - 32);
+  const tooltipW = Math.min(480, vw - 32);
   const spaceBelow = vh - (rect.top + rect.height);
-  const placeAbove = spaceBelow < 220 && rect.top > 240;
+  const placeAbove = spaceBelow < 260 && rect.top > 260;
 
   const tooltipTop = placeAbove
-    ? Math.max(16, rect.top - 12 - 180)
-    : Math.min(vh - 200, rect.top + rect.height + 12);
+    ? Math.max(16, rect.top - 12 - 240)
+    : Math.min(vh - 240, rect.top + rect.height + 12);
   const tooltipLeft = Math.max(
     16,
     Math.min(vw - tooltipW - 16, rect.left + rect.width / 2 - tooltipW / 2),
@@ -230,44 +232,21 @@ function AnchoredCoach({
           boxShadow: "0 0 0 3px hsl(var(--primary) / 0.35)",
         }}
       />
-      {/* Callout */}
+      {/* Context Card */}
       <div
         role="status"
         aria-live="polite"
         className="pointer-events-auto fixed z-40 animate-fade-in"
         style={{ top: tooltipTop, left: tooltipLeft, width: tooltipW }}
       >
-        <div className="overflow-hidden rounded-2xl border border-hairline bg-background/95 shadow-elevated backdrop-blur-xl">
-          <div className="flex items-center justify-between gap-2 border-b border-hairline px-4 py-2">
-            <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              <Sparkles className="h-3 w-3 text-primary" />
-              Step {stepNumber} of {total} · {step.label}
-            </div>
-            <button
-              type="button"
-              onClick={() => journeyStore.exit()}
-              className="rounded-full p-1 text-muted-foreground transition hover:text-foreground"
-              aria-label="Pause guided journey"
-              title="Pause — progress is saved"
-            >
-              <X className="h-3 w-3" />
-            </button>
-          </div>
-          <div className="p-4">
-            <h3 className="font-display text-sm leading-snug text-foreground">
-              {step.objective}
-            </h3>
-            <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-              {helper}
-            </p>
-            <div className="mt-3 flex justify-end">
-              <Button size="sm" onClick={onPrimary} className="gap-2">
-                {primaryLabel}
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Button>
-            </div>
-          </div>
-        </div>
+        <JourneyContextCard
+          stepNumber={stepNumber}
+          total={total}
+          title={title}
+          helper={helper}
+          primaryLabel={primaryLabel}
+          onPrimary={onPrimary}
+        />
       </div>
     </>
   );
