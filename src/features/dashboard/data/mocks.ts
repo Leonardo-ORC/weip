@@ -93,7 +93,7 @@ export const ROADMAP: RoadmapModule[] = [
   
   { id: "r2", name: "Knowledge Graph", description: "Concept-level evidence linking.", icon: GitBranch, phase: "next", eta: "Q3" },
   { id: "r3", name: "Research Gap Engine", description: "Systematic detection of missing evidence.", icon: FileSearch, phase: "later", eta: "Q4" },
-  { id: "r4", name: "Evidence Explorer", description: "Faceted navigation across structured evidence.", icon: BookOpen, phase: "later", eta: "Q4" },
+  
   { id: "r5", name: "Clinical Intelligence", description: "Explainable, cited scientific answers.", icon: Brain, phase: "horizon" },
   { id: "r6", name: "Explainability", description: "Provenance & confidence across every claim.", icon: Lightbulb, phase: "horizon" },
   { id: "r7", name: "Developer API", description: "Programmatic access to evidence & intelligence.", icon: Cpu, phase: "horizon" },

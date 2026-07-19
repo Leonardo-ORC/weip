@@ -18,6 +18,7 @@ import {
   useDashboardData,
 } from "@/features/dashboard";
 import { OntologyReadyWidget } from "@/features/ontology";
+import { EvidenceReadyWidget } from "@/features/evidence-explorer";
 
 export const Route = createFileRoute("/app/dashboard")({
   head: () => ({
@@ -63,6 +64,7 @@ function DashboardPage() {
         <QuickActions actions={data.quickActions} />
         <InsightsPanel items={data.insights} />
         <OntologyReadyWidget />
+        <EvidenceReadyWidget />
 
         <DashboardRow ratio="primary">
           <PlatformStatusGrid modules={data.modules} />
