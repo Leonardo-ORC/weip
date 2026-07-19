@@ -22,6 +22,7 @@ import {
   ValidationPanel,
   WomensHealthPanel,
 } from "@/features/extraction";
+import { RelatedConceptsPanel } from "@/features/graph";
 import type { EvidenceObject } from "../types";
 import {
   ConfidenceIndicator,
@@ -86,6 +87,8 @@ export function EvidenceInspector({ evidence, bookmarked, comparing, onBookmark,
         onBookmark={onBookmark}
         onCompare={onCompare}
       />
+
+      <RelatedConceptsPanel evidenceId={evidence.id} />
 
       {evidence.extraction ? (
         <>
