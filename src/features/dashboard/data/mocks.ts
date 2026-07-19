@@ -18,6 +18,7 @@ import {
   Lock,
   Network,
   Plus,
+  Radio,
   ShieldCheck,
   Sparkles,
   Users,
