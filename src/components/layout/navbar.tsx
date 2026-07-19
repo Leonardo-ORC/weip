@@ -12,6 +12,14 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { isAuthenticated, signOut, profile, user } = useAuth();
+  const initials =
+    (profile?.fullName || user?.email || "")
+      .split(/\s+|@/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((s) => s[0]?.toUpperCase())
+      .join("") || "WE";
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 12);
