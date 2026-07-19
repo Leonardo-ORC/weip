@@ -22,6 +22,14 @@ import { EvidenceReadyWidget } from "@/features/evidence-explorer";
 import { ResearchReadyWidget } from "@/features/research";
 import { ScientificSourcesWidget } from "@/features/sources";
 import { KnowledgeCoverageWidget } from "@/features/graph";
+import {
+  CoverageHeatmap,
+  EvidenceRecommendationList,
+  IntelligenceMetrics,
+  IntelligencePanel,
+  ResearchIntelligenceService,
+  useIntelligenceMetrics,
+} from "@/features/intelligence";
 
 export const Route = createFileRoute("/app/dashboard")({
   head: () => ({
@@ -36,6 +44,9 @@ export const Route = createFileRoute("/app/dashboard")({
 
 function DashboardPage() {
   const data = useDashboardData();
+  const metrics = useIntelligenceMetrics();
+  const coverage = ResearchIntelligenceService.areaCoverage();
+  const highConfidence = ResearchIntelligenceService.highConfidenceEvidence();
 
   return (
     <AppPage
@@ -65,6 +76,34 @@ function DashboardPage() {
         />
 
         <QuickActions actions={data.quickActions} />
+
+        <IntelligenceMetrics metrics={metrics} />
+        <IntelligencePanel
+          surface="dashboard"
+          title="Research opportunities & signals"
+          subtitle="Deterministic detectors first — OpenAI enriches summaries without replacing them."
+        />
+
+        <section className="rounded-2xl border border-hairline bg-background/60 p-6">
+          <header className="mb-4">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+              Coverage
+            </div>
+            <h2 className="font-display mt-1 text-lg text-foreground">Research area coverage</h2>
+          </header>
+          <CoverageHeatmap coverage={coverage} />
+        </section>
+
+        <section className="rounded-2xl border border-hairline bg-background/60 p-6">
+          <header className="mb-4">
+            <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+              Recent discoveries
+            </div>
+            <h2 className="font-display mt-1 text-lg text-foreground">High-confidence evidence</h2>
+          </header>
+          <EvidenceRecommendationList evidence={highConfidence} />
+        </section>
+
         <InsightsPanel items={data.insights} />
         <KnowledgeCoverageWidget />
         <ScientificSourcesWidget />
