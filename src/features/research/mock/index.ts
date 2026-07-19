@@ -17,8 +17,8 @@ export const OWNERS: ResearchOwner[] = [
   { id: "o5", name: "Dr. Julia Weber", initials: "JW", role: "Reproductive Health Lead" },
 ];
 
-const now = Date.now();
-const daysAgo = (d: number) => new Date(now - d * 86_400_000).toISOString();
+const MOCK_BASE_DATE = Date.UTC(2026, 6, 19, 12, 0, 0);
+const daysAgo = (d: number) => new Date(MOCK_BASE_DATE - d * 86_400_000).toISOString();
 
 export const PROJECTS: ResearchProject[] = [
   {

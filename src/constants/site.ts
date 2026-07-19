@@ -3,5 +3,5 @@ export const SITE = {
   tagline: "Women's Evidence Intelligence Platform",
   description:
     "The intelligence layer for women's clinical evidence — structured, explainable, connected.",
-  year: new Date().getFullYear(),
+  year: 2026,
 } as const;
