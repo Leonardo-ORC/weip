@@ -55,7 +55,9 @@ function KnowledgeGraphPage() {
       subtitle="Every Evidence Object becomes part of a semantic network — with provenance on every relationship."
     >
       <div className="flex flex-col gap-8">
-        <KnowledgeMetrics metrics={metrics} />
+        <div data-journey-target="graph">
+          <KnowledgeMetrics metrics={metrics} />
+        </div>
 
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_380px]">
           <section className="flex flex-col gap-4">
