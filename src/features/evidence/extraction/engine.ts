@@ -11,17 +11,17 @@ import type {
   ExtractionModelDefinition,
   ExtractionRequest,
   ExtractionResponse,
-} from "../contracts/extraction-model";
-import type { PromptDefinition } from "../contracts/prompt";
-import type { ParserDefinition } from "../contracts/parser";
-import type { ValidatorDefinition } from "../contracts/validator";
-import type { ExtractionError } from "../types";
+} from "./contracts/extraction-model";
+import type { PromptDefinition } from "./contracts/prompt";
+import type { ParserDefinition } from "./contracts/parser";
+import type { ValidatorDefinition } from "./contracts/validator";
+import type { ExtractionError } from "./types";
 import {
   getExtractionModelById,
   getPromptById,
   getAllParsers,
   getAllValidators,
-} from "../registry";
+} from "./registry";
 
 export interface ExtractionPlan {
   readonly model: ExtractionModelDefinition;
