@@ -79,6 +79,33 @@ export function SearchTrigger({ className }: { className?: string }) {
             </CommandGroup>
           ))}
           <CommandSeparator />
+          {(["project", "collection", "module", "activity"] as const).map((kind) => {
+            const rows = entities.filter((e) => e.kind === kind);
+            if (rows.length === 0) return null;
+            const Icon = KIND_ICON[kind];
+            const heading = kind.charAt(0).toUpperCase() + kind.slice(1) + "s";
+            return (
+              <CommandGroup key={kind} heading={heading}>
+                {rows.map((r) => (
+                  <CommandItem
+                    key={`${kind}-${r.id}`}
+                    value={`${r.title} ${r.subtitle ?? ""}`}
+                    onSelect={() => {
+                      setOpen(false);
+                      if (r.to) navigate({ to: r.to as never });
+                    }}
+                  >
+                    <Icon className="mr-2 h-4 w-4" />
+                    <span className="truncate">{r.title}</span>
+                    {r.subtitle ? (
+                      <span className="ml-auto text-xs text-muted-foreground">{r.subtitle}</span>
+                    ) : null}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            );
+          })}
+          <CommandSeparator />
           <CommandGroup heading="Quick actions">
             <CommandItem onSelect={() => setOpen(false)}>
               <ArrowRight className="mr-2 h-4 w-4" /> Request early access
