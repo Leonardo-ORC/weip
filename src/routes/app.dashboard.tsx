@@ -21,6 +21,7 @@ import {
   WorkspaceCard,
   WorkspaceGrid,
 } from "@/components/app/cards";
+import { useAuth } from "@/features/auth";
 
 export const Route = createFileRoute("/app/dashboard")({
   head: () => ({
@@ -45,10 +46,12 @@ function SectionHeading({ title, subtitle, action }: { title: string; subtitle?:
 }
 
 function DashboardPage() {
+  const { profile, user } = useAuth();
+  const firstName = profile?.fullName?.split(" ")[0] || user?.email?.split("@")[0] || "there";
   return (
     <AppPage
       eyebrow="Overview"
-      title="Welcome back, Ava."
+      title={`Welcome back, ${firstName}.`}
       subtitle="Your evidence workspace. Placeholder metrics until live data flows in."
       breadcrumbs={[{ label: "Workspace", to: "/app/dashboard" }, { label: "Dashboard" }]}
       primaryAction={
