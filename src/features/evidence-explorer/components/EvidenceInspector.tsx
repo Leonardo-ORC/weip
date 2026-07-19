@@ -12,6 +12,16 @@ import {
   Users,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  BiomedicalEntitiesPanel,
+  EvidenceConfidenceBadge,
+  EvidenceExtractionStatus,
+  EvidenceMetadataPanel,
+  EvidenceTraceabilityPanel,
+  StudyPanel,
+  ValidationPanel,
+  WomensHealthPanel,
+} from "@/features/extraction";
 import type { EvidenceObject } from "../types";
 import {
   ConfidenceIndicator,
@@ -60,6 +70,17 @@ export function EvidenceInspector({ evidence, bookmarked, comparing, onBookmark,
         </div>
       </div>
 
+        {evidence.extraction ? (
+          <div className="mt-4 flex flex-col gap-2">
+            <EvidenceConfidenceBadge confidence={evidence.extraction.confidence} />
+            <EvidenceExtractionStatus
+              metadata={evidence.extraction.metadata}
+              validation={evidence.extraction.validation}
+            />
+          </div>
+        ) : null}
+      </div>
+
       <ActionBar
         evidenceId={evidence.id}
         bookmarked={bookmarked}
@@ -67,6 +88,17 @@ export function EvidenceInspector({ evidence, bookmarked, comparing, onBookmark,
         onBookmark={onBookmark}
         onCompare={onCompare}
       />
+
+      {evidence.extraction ? (
+        <>
+          <BiomedicalEntitiesPanel entities={evidence.extraction.entities} />
+          <WomensHealthPanel concepts={evidence.extraction.womensHealth} />
+          <StudyPanel study={evidence.extraction.study} />
+          <ValidationPanel validation={evidence.extraction.validation} />
+          <EvidenceTraceabilityPanel trace={evidence.extraction.traceability} />
+          <EvidenceMetadataPanel metadata={evidence.extraction.metadata} />
+        </>
+      ) : null}
 
       <Section icon={FileText} title="Overview" eyebrow="Summary">
         <KVList
