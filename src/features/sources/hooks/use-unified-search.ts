@@ -53,11 +53,53 @@ function toQuery(inputs: UnifiedSearchInputs, page: number): UnifiedSearchQuery 
   };
 }
 
+function presetInputs(): UnifiedSearchInputs {
+  const p = DEMO_PRESET.sources;
+  return {
+    ...DEFAULT_UNIFIED_INPUTS,
+    term: p.term,
+    condition: p.condition,
+    drug: p.drug,
+    disease: p.disease,
+    author: p.author,
+    journal: p.journal,
+    yearFrom: p.yearFrom,
+    yearTo: p.yearTo,
+    sources: [...p.sources] as SourceId[],
+    sort: p.sort,
+    pageSize: p.pageSize,
+  };
+}
+
 export function useUnifiedSearch() {
   const client = useQueryClient();
-  const [inputs, setInputs] = useState<UnifiedSearchInputs>(DEFAULT_UNIFIED_INPUTS);
-  const [activeInputs, setActiveInputs] = useState<UnifiedSearchInputs | null>(null);
+  const journeyActive =
+    typeof window !== "undefined" && journeyStore.get().active;
+  const initial = journeyActive ? presetInputs() : DEFAULT_UNIFIED_INPUTS;
+  const [inputs, setInputs] = useState<UnifiedSearchInputs>(initial);
+  const [activeInputs, setActiveInputs] = useState<UnifiedSearchInputs | null>(
+    journeyActive ? initial : null,
+  );
   const [page, setPage] = useState(1);
+  const seededRef = useRef(journeyActive);
+
+  // If the journey activates after mount, seed once.
+  useEffect(() => {
+    const unsub = journeyStore.subscribe(() => {
+      const active = journeyStore.get().active;
+      if (active && !seededRef.current) {
+        seededRef.current = true;
+        const preset = presetInputs();
+        setInputs(preset);
+        setActiveInputs(preset);
+        setPage(1);
+      }
+    });
+    return () => {
+      unsub();
+    };
+  }, []);
+
 
   const query = useMemo(
     () => (activeInputs ? toQuery(activeInputs, page) : null),
