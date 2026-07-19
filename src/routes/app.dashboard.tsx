@@ -20,6 +20,7 @@ import {
 import { OntologyReadyWidget } from "@/features/ontology";
 import { EvidenceReadyWidget } from "@/features/evidence-explorer";
 import { ResearchReadyWidget } from "@/features/research";
+import { PubMedLiveWidget } from "@/features/pubmed";
 
 export const Route = createFileRoute("/app/dashboard")({
   head: () => ({
@@ -64,9 +65,11 @@ function DashboardPage() {
 
         <QuickActions actions={data.quickActions} />
         <InsightsPanel items={data.insights} />
+        <PubMedLiveWidget />
         <OntologyReadyWidget />
         <EvidenceReadyWidget />
         <ResearchReadyWidget />
+
 
         <DashboardRow ratio="primary">
           <PlatformStatusGrid modules={data.modules} />
