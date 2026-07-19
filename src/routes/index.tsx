@@ -498,7 +498,7 @@ function GuidedJourneyBanner() {
             <Eyebrow>Guided Research Journey</Eyebrow>
             <h2 className="font-display mt-6 text-4xl leading-[1.05] tracking-tight lg:text-5xl text-balance">
               See the platform in{" "}
-              <span className="italic text-royal">five minutes.</span>
+              <span className="italic text-royal">one minute.</span>
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
               A curated scientific project — from imported studies to a
