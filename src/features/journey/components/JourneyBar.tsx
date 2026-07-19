@@ -1,6 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { X, ChevronRight, Info, Sparkles, Eye, EyeOff } from "lucide-react";
+import { X, ChevronRight, Info, Sparkles, Eye, EyeOff, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { feedback } from "@/lib/feedback";
@@ -39,6 +39,16 @@ export function JourneyBar() {
     );
   }
 
+  function handleRestart() {
+    journeyStore.reset();
+    journeyStore.start();
+    navigate({ to: getStep("sources").route as never });
+    feedback.info(
+      "Guided Journey restarted",
+      "Back to step 1 — Scientific Sources.",
+    );
+  }
+
   return (
     <div
       role="region"
@@ -67,6 +77,16 @@ export function JourneyBar() {
           </div>
           <div className="flex items-center gap-1">
             <FocusToggle on={focusOn} onToggle={() => journeyStore.toggleFocus()} />
+            <button
+              type="button"
+              onClick={handleRestart}
+              className="inline-flex items-center gap-1.5 rounded-full border border-hairline px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition hover:text-foreground"
+              title="Restart the Guided Journey from step 1"
+              aria-label="Restart Guided Journey"
+            >
+              <RotateCcw className="h-3 w-3" />
+              Restart
+            </button>
             <button
               type="button"
               onClick={() => setExpanded((v) => !v)}
