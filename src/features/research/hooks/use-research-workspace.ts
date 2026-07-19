@@ -32,7 +32,11 @@ export function useResearchWorkspace() {
   const statistics = useMemo(() => ResearchWorkspaceService.statistics(), []);
   const owners = useMemo(() => ResearchWorkspaceService.owners(), []);
 
-  const [filters, setFilters] = useState<WorkspaceFilters>(EMPTY_WORKSPACE_FILTERS);
+  const initialFilters: WorkspaceFilters =
+    typeof window !== "undefined" && journeyStore.get().active
+      ? { ...EMPTY_WORKSPACE_FILTERS, query: DEMO_PRESET.research.query }
+      : EMPTY_WORKSPACE_FILTERS;
+  const [filters, setFilters] = useState<WorkspaceFilters>(initialFilters);
   const [selectedProjectId, setSelectedProjectId] = useState<string>(allProjects[0]?.id ?? "");
 
   const projects = useMemo(
