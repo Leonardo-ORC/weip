@@ -62,6 +62,7 @@ function DashboardPage() {
 
         <QuickActions actions={data.quickActions} />
         <InsightsPanel items={data.insights} />
+        <OntologyReadyWidget />
 
         <DashboardRow ratio="primary">
           <PlatformStatusGrid modules={data.modules} />
