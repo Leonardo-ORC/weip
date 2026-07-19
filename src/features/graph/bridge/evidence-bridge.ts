@@ -4,6 +4,7 @@
  * incrementally — the graph is never rebuilt from scratch.
  */
 
+import { EVIDENCE_OBJECTS } from "@/features/evidence-explorer/mock";
 import { ScientificImportStore } from "@/features/sources/store/import-store";
 import { KnowledgeGraphBuilder } from "../services/graph-builder";
 import { KnowledgeGraphStore } from "../services/graph-store";
@@ -11,17 +12,21 @@ import { KnowledgeGraphStore } from "../services/graph-store";
 let installed = false;
 const ingested = new Set<string>();
 
-function syncOnce(): void {
-  const evidence = ScientificImportStore.snapshotEvidence();
+function ingestList(list: readonly { readonly id: string }[]): number {
   let touched = 0;
-  for (const ev of evidence) {
+  for (const ev of list) {
     if (ingested.has(ev.id)) continue;
-    KnowledgeGraphBuilder.ingestEvidence(ev);
+    KnowledgeGraphBuilder.ingestEvidence(ev as never);
     ingested.add(ev.id);
     touched += 1;
   }
+  return touched;
+}
+
+function syncOnce(): void {
+  const live = ScientificImportStore.snapshotEvidence();
+  const touched = ingestList(live) + (ingested.size === 0 ? ingestList(EVIDENCE_OBJECTS) : 0);
   if (touched === 0) {
-    // still emit initial snapshot so listeners see empty state
     KnowledgeGraphStore.commit();
   }
 }
