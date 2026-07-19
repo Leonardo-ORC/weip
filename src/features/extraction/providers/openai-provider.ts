@@ -111,7 +111,8 @@ function toWomensSet(raw: OpenAiRawExtraction, confidence: number): WomensHealth
 }
 
 function toStudy(raw: OpenAiRawExtraction, confidence: number): Partial<StudyAttributes> {
-  const out: Partial<StudyAttributes> = {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const out: any = {};
   if (raw.population != null) out.population = aiField(raw.population, confidence);
   if (raw.sampleSize != null && Number.isFinite(raw.sampleSize)) {
     out.sampleSize = aiField(raw.sampleSize, confidence);
@@ -135,7 +136,7 @@ function toStudy(raw: OpenAiRawExtraction, confidence: number): Partial<StudyAtt
   }
   if (raw.institution != null) out.institution = aiField(raw.institution, confidence);
   if (raw.funding != null) out.funding = aiField(raw.funding, confidence);
-  return out;
+  return out as Partial<StudyAttributes>;
 }
 
 export const OPENAI_PROVIDER_METADATA: AiProviderMetadata = {
