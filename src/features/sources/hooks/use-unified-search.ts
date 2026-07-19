@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { DEMO_PRESET, journeyStore } from "@/features/journey";
 import { UnifiedSearchClient } from "../services";
 import type { SourceId, UnifiedSearchQuery } from "../types";
 
