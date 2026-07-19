@@ -90,7 +90,7 @@ export const NOTIFICATIONS: NotificationItem[] = [
 ];
 
 export const ROADMAP: RoadmapModule[] = [
-  { id: "r1", name: "Clinical Ontology", description: "Structured hormones, cycles and conditions.", icon: Network, phase: "next", eta: "Q3" },
+  
   { id: "r2", name: "Knowledge Graph", description: "Concept-level evidence linking.", icon: GitBranch, phase: "next", eta: "Q3" },
   { id: "r3", name: "Research Gap Engine", description: "Systematic detection of missing evidence.", icon: FileSearch, phase: "later", eta: "Q4" },
   { id: "r4", name: "Evidence Explorer", description: "Faceted navigation across structured evidence.", icon: BookOpen, phase: "later", eta: "Q4" },

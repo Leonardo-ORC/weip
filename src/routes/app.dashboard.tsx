@@ -17,6 +17,7 @@ import {
   RoadmapWidget,
   useDashboardData,
 } from "@/features/dashboard";
+import { OntologyReadyWidget } from "@/features/ontology";
 
 export const Route = createFileRoute("/app/dashboard")({
   head: () => ({
@@ -61,6 +62,7 @@ function DashboardPage() {
 
         <QuickActions actions={data.quickActions} />
         <InsightsPanel items={data.insights} />
+        <OntologyReadyWidget />
 
         <DashboardRow ratio="primary">
           <PlatformStatusGrid modules={data.modules} />

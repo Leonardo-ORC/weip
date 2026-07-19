@@ -1,4 +1,13 @@
-/**
- * ontology — module entry.
- */
-export {};
+export * from "./types";
+export * from "./services";
+export { useOntologyWorkspace } from "./hooks/use-ontology-workspace";
+export { OntologyWorkspace } from "./components/OntologyWorkspace";
+export { OntologyHeader, SemanticMetric, OntologyStatusBadge } from "./components/OntologyHeader";
+export { OntologySearch } from "./components/OntologySearch";
+export { VocabularyGrid, VocabularyCard } from "./components/VocabularyGrid";
+export { ConceptGrid, ConceptCard } from "./components/ConceptGrid";
+export { ConceptInspector } from "./components/ConceptInspector";
+export { TaxonomyTree, HierarchyNode } from "./components/TaxonomyTree";
+export { RelationshipGraph, RelationshipFilterBar } from "./components/RelationshipGraph";
+export { MappingCard } from "./components/MappingCard";
+export { OntologyReadyWidget } from "./components/OntologyReadyWidget";
