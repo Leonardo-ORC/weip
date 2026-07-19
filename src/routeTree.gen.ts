@@ -28,6 +28,7 @@ import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as EvidencePipelineRouteImport } from './routes/evidence.pipeline'
 import { Route as EvidenceExtractionRouteImport } from './routes/evidence.extraction'
 import { Route as AppWorkspaceRouteImport } from './routes/app.workspace'
+import { Route as AppSourcesRouteImport } from './routes/app.sources'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppResearchRouteImport } from './routes/app.research'
 import { Route as AppPubmedRouteImport } from './routes/app.pubmed'
@@ -137,6 +138,11 @@ const AppWorkspaceRoute = AppWorkspaceRouteImport.update({
   path: '/workspace',
   getParentRoute: () => AppRoute,
 } as any)
+const AppSourcesRoute = AppSourcesRouteImport.update({
+  id: '/sources',
+  path: '/sources',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -232,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/app/pubmed': typeof AppPubmedRoute
   '/app/research': typeof AppResearchRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/sources': typeof AppSourcesRoute
   '/app/workspace': typeof AppWorkspaceRoute
   '/evidence/extraction': typeof EvidenceExtractionRoute
   '/evidence/pipeline': typeof EvidencePipelineRoute
@@ -265,6 +272,7 @@ export interface FileRoutesByTo {
   '/app/pubmed': typeof AppPubmedRoute
   '/app/research': typeof AppResearchRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/sources': typeof AppSourcesRoute
   '/app/workspace': typeof AppWorkspaceRoute
   '/evidence/extraction': typeof EvidenceExtractionRoute
   '/evidence/pipeline': typeof EvidencePipelineRoute
@@ -300,6 +308,7 @@ export interface FileRoutesById {
   '/app/pubmed': typeof AppPubmedRoute
   '/app/research': typeof AppResearchRoute
   '/app/settings': typeof AppSettingsRoute
+  '/app/sources': typeof AppSourcesRoute
   '/app/workspace': typeof AppWorkspaceRoute
   '/evidence/extraction': typeof EvidenceExtractionRoute
   '/evidence/pipeline': typeof EvidencePipelineRoute
@@ -336,6 +345,7 @@ export interface FileRouteTypes {
     | '/app/pubmed'
     | '/app/research'
     | '/app/settings'
+    | '/app/sources'
     | '/app/workspace'
     | '/evidence/extraction'
     | '/evidence/pipeline'
@@ -369,6 +379,7 @@ export interface FileRouteTypes {
     | '/app/pubmed'
     | '/app/research'
     | '/app/settings'
+    | '/app/sources'
     | '/app/workspace'
     | '/evidence/extraction'
     | '/evidence/pipeline'
@@ -403,6 +414,7 @@ export interface FileRouteTypes {
     | '/app/pubmed'
     | '/app/research'
     | '/app/settings'
+    | '/app/sources'
     | '/app/workspace'
     | '/evidence/extraction'
     | '/evidence/pipeline'
@@ -562,6 +574,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppWorkspaceRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/sources': {
+      id: '/app/sources'
+      path: '/sources'
+      fullPath: '/app/sources'
+      preLoaderRoute: typeof AppSourcesRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/settings': {
       id: '/app/settings'
       path: '/settings'
@@ -670,6 +689,7 @@ interface AppRouteChildren {
   AppPubmedRoute: typeof AppPubmedRoute
   AppResearchRoute: typeof AppResearchRoute
   AppSettingsRoute: typeof AppSettingsRoute
+  AppSourcesRoute: typeof AppSourcesRoute
   AppWorkspaceRoute: typeof AppWorkspaceRoute
   AppIndexRoute: typeof AppIndexRoute
 }
@@ -688,6 +708,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppPubmedRoute: AppPubmedRoute,
   AppResearchRoute: AppResearchRoute,
   AppSettingsRoute: AppSettingsRoute,
+  AppSourcesRoute: AppSourcesRoute,
   AppWorkspaceRoute: AppWorkspaceRoute,
   AppIndexRoute: AppIndexRoute,
 }

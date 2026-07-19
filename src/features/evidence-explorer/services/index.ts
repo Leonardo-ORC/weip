@@ -1,5 +1,6 @@
 import { EVIDENCE_OBJECTS, SAVED_COLLECTIONS } from "../mock";
 import { PubMedImportStore } from "@/features/pubmed/store/import-store";
+import { ScientificImportStore } from "@/features/sources/store/import-store";
 import type {
   EvidenceCollection,
   EvidenceFilters,
@@ -7,7 +8,11 @@ import type {
 } from "../types";
 
 function allEvidence(): EvidenceObject[] {
-  return [...PubMedImportStore.snapshotEvidence(), ...EVIDENCE_OBJECTS];
+  return [
+    ...ScientificImportStore.snapshotEvidence(),
+    ...PubMedImportStore.snapshotEvidence(),
+    ...EVIDENCE_OBJECTS,
+  ];
 }
 
 export interface IEvidenceService {
