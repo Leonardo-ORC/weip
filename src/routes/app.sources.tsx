@@ -25,7 +25,9 @@ function SourcesPage() {
       title="Scientific Sources"
       subtitle="One search across every connected scientific provider."
     >
-      <ScientificSourcesWorkspace />
+      <div data-journey-target="sources">
+        <ScientificSourcesWorkspace />
+      </div>
     </AppPage>
   );
 }

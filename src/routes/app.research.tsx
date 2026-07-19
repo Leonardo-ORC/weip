@@ -38,12 +38,14 @@ function ResearchPage() {
       <div className="flex flex-col gap-10">
         <IntelligenceMetrics metrics={metrics} />
 
-        <IntelligencePanel
-          surface="research"
-          title="Insights & recommendations"
-          subtitle="Explainable signals derived from Evidence Objects and the Knowledge Graph."
-          limit={6}
-        />
+        <div data-journey-target="intelligence">
+          <IntelligencePanel
+            surface="research"
+            title="Insights & recommendations"
+            subtitle="Explainable signals derived from Evidence Objects and the Knowledge Graph."
+            limit={6}
+          />
+        </div>
 
         <CoverageHeatmap coverage={ResearchIntelligenceService.areaCoverage()} />
 

@@ -59,7 +59,7 @@ function PipelinePage() {
         </section>
 
         {/* Secondary — stage map */}
-        <section className="rounded-2xl border border-hairline bg-background/60 p-6">
+        <section data-journey-target="extraction" className="rounded-2xl border border-hairline bg-background/60 p-6">
           <header className="mb-4">
             <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
               Stages

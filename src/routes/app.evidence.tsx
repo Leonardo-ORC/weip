@@ -61,7 +61,9 @@ function EvidencePage() {
         </div>
       }
     >
-      <EvidenceWorkspace state={state} />
+      <div data-journey-target="evidence">
+        <EvidenceWorkspace state={state} />
+      </div>
     </AppPage>
   );
 }
