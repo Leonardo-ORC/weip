@@ -21,7 +21,7 @@ export function JourneyBar() {
     setBusy(true);
     await new Promise((r) => setTimeout(r, 650));
     const next = journeyStore.completeCurrent();
-    feedback.success(`${step.label} complete`, { description: step.result });
+    feedback.success(`${step.label} complete`, step.result);
     if (next) {
       const nextStep = getStep(next);
       navigate({ to: nextStep.route as never });
@@ -31,9 +31,10 @@ export function JourneyBar() {
 
   function handleExit() {
     journeyStore.exit();
-    feedback.info("Guided Journey paused", {
-      description: "Your progress is saved. Resume anytime from the dashboard.",
-    });
+    feedback.info(
+      "Guided Journey paused",
+      "Your progress is saved. Resume anytime from the dashboard.",
+    );
   }
 
   return (
