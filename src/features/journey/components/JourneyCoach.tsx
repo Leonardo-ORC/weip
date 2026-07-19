@@ -158,7 +158,7 @@ export function JourneyCoach() {
     return (
       <DockedCallout
         stepId={stepId}
-        title={step.objective}
+        title={spec.title}
         helper={spec.helper}
         primaryLabel={onRoute ? spec.primaryLabel : `Open ${step.label}`}
         onPrimary={onRoute ? complete : goToStepRoute}
