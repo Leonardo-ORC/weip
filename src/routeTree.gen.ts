@@ -39,6 +39,7 @@ import { Route as AppOntologyRouteImport } from './routes/app.ontology'
 import { Route as AppNotificationsRouteImport } from './routes/app.notifications'
 import { Route as AppModelsRouteImport } from './routes/app.models'
 import { Route as AppHelpRouteImport } from './routes/app.help'
+import { Route as AppGraphRouteImport } from './routes/app.graph'
 import { Route as AppEvidenceRouteImport } from './routes/app.evidence'
 import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
 import { Route as AppCollectionsRouteImport } from './routes/app.collections'
@@ -193,6 +194,11 @@ const AppHelpRoute = AppHelpRouteImport.update({
   path: '/help',
   getParentRoute: () => AppRoute,
 } as any)
+const AppGraphRoute = AppGraphRouteImport.update({
+  id: '/graph',
+  path: '/graph',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppEvidenceRoute = AppEvidenceRouteImport.update({
   id: '/evidence',
   path: '/evidence',
@@ -228,6 +234,7 @@ export interface FileRoutesByFullPath {
   '/app/collections': typeof AppCollectionsRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/evidence': typeof AppEvidenceRoute
+  '/app/graph': typeof AppGraphRoute
   '/app/help': typeof AppHelpRoute
   '/app/models': typeof AppModelsRoute
   '/app/notifications': typeof AppNotificationsRoute
@@ -262,6 +269,7 @@ export interface FileRoutesByTo {
   '/app/collections': typeof AppCollectionsRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/evidence': typeof AppEvidenceRoute
+  '/app/graph': typeof AppGraphRoute
   '/app/help': typeof AppHelpRoute
   '/app/models': typeof AppModelsRoute
   '/app/notifications': typeof AppNotificationsRoute
@@ -298,6 +306,7 @@ export interface FileRoutesById {
   '/app/collections': typeof AppCollectionsRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/evidence': typeof AppEvidenceRoute
+  '/app/graph': typeof AppGraphRoute
   '/app/help': typeof AppHelpRoute
   '/app/models': typeof AppModelsRoute
   '/app/notifications': typeof AppNotificationsRoute
@@ -335,6 +344,7 @@ export interface FileRouteTypes {
     | '/app/collections'
     | '/app/dashboard'
     | '/app/evidence'
+    | '/app/graph'
     | '/app/help'
     | '/app/models'
     | '/app/notifications'
@@ -369,6 +379,7 @@ export interface FileRouteTypes {
     | '/app/collections'
     | '/app/dashboard'
     | '/app/evidence'
+    | '/app/graph'
     | '/app/help'
     | '/app/models'
     | '/app/notifications'
@@ -404,6 +415,7 @@ export interface FileRouteTypes {
     | '/app/collections'
     | '/app/dashboard'
     | '/app/evidence'
+    | '/app/graph'
     | '/app/help'
     | '/app/models'
     | '/app/notifications'
@@ -651,6 +663,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHelpRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/graph': {
+      id: '/app/graph'
+      path: '/graph'
+      fullPath: '/app/graph'
+      preLoaderRoute: typeof AppGraphRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/evidence': {
       id: '/app/evidence'
       path: '/evidence'
@@ -679,6 +698,7 @@ interface AppRouteChildren {
   AppCollectionsRoute: typeof AppCollectionsRoute
   AppDashboardRoute: typeof AppDashboardRoute
   AppEvidenceRoute: typeof AppEvidenceRoute
+  AppGraphRoute: typeof AppGraphRoute
   AppHelpRoute: typeof AppHelpRoute
   AppModelsRoute: typeof AppModelsRoute
   AppNotificationsRoute: typeof AppNotificationsRoute
@@ -698,6 +718,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppCollectionsRoute: AppCollectionsRoute,
   AppDashboardRoute: AppDashboardRoute,
   AppEvidenceRoute: AppEvidenceRoute,
+  AppGraphRoute: AppGraphRoute,
   AppHelpRoute: AppHelpRoute,
   AppModelsRoute: AppModelsRoute,
   AppNotificationsRoute: AppNotificationsRoute,
