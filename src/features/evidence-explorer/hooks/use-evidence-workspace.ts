@@ -27,7 +27,17 @@ export function useEvidenceWorkspace() {
   const facets = useMemo(() => EvidenceFilterService.facets(all), [all]);
   const collections = useMemo(() => EvidenceCollectionService.list(), []);
 
-  const [filters, setFilters] = useState<EvidenceFilters>(EMPTY_FILTERS);
+  const initialFilters: EvidenceFilters =
+    typeof window !== "undefined" && journeyStore.get().active
+      ? {
+          ...EMPTY_FILTERS,
+          query: DEMO_PRESET.evidence.query,
+          drugs: [...DEMO_PRESET.evidence.drugs],
+          conditions: [...DEMO_PRESET.evidence.conditions],
+          hormonalContexts: [...DEMO_PRESET.evidence.hormonalContexts],
+        }
+      : EMPTY_FILTERS;
+  const [filters, setFilters] = useState<EvidenceFilters>(initialFilters);
   const [selectedId, setSelectedId] = useState<string>(all[0]?.id ?? "");
   const [compareIds, setCompareIds] = useState<string[]>([]);
   const [bookmarks, setBookmarks] = useState<string[]>([]);
