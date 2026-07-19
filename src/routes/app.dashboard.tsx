@@ -13,6 +13,7 @@ import {
   IntelligencePanel,
   useIntelligenceMetrics,
 } from "@/features/intelligence";
+import { JourneyEntryCard } from "@/features/journey";
 
 export const Route = createFileRoute("/app/dashboard")({
   head: () => ({
@@ -39,9 +40,12 @@ function DashboardPage() {
       <DashboardStack>
         <CommandCenter />
 
+        <JourneyEntryCard variant="dashboard" />
+
         <ResearchJourney />
 
         <NextAction />
+
 
         <QuickActions actions={data.quickActions} />
 
