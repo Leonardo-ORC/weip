@@ -167,7 +167,16 @@ export function JourneyCoach() {
   }
 
   // Positioned ring + tooltip
-  return <AnchoredCoach rect={rect} stepId={stepId} helper={spec.helper} primaryLabel={spec.primaryLabel} onPrimary={complete} />;
+  return (
+    <AnchoredCoach
+      rect={rect}
+      stepId={stepId}
+      title={spec.title}
+      helper={spec.helper}
+      primaryLabel={spec.primaryLabel}
+      onPrimary={complete}
+    />
+  );
 }
 
 /* ---------- pieces ---------- */
