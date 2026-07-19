@@ -66,6 +66,7 @@ function DashboardPage() {
         <InsightsPanel items={data.insights} />
         <OntologyReadyWidget />
         <EvidenceReadyWidget />
+        <ResearchReadyWidget />
 
         <DashboardRow ratio="primary">
           <PlatformStatusGrid modules={data.modules} />
