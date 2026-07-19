@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Search, ArrowRight, Command } from "lucide-react";
+import { Search, ArrowRight, Command, FolderKanban, Library, Layers, Activity } from "lucide-react";
 import {
   CommandDialog,
   CommandEmpty,
@@ -12,6 +12,14 @@ import {
 import { APP_NAV_SECTIONS } from "@/constants/app-navigation";
 import { useNavigate } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
+import { useDashboardData } from "@/features/dashboard";
+
+const KIND_ICON = {
+  project: FolderKanban,
+  collection: Library,
+  module: Layers,
+  activity: Activity,
+} as const;
 
 export function SearchTrigger({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);
