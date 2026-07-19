@@ -8,6 +8,14 @@
 
 export type SourceId = "pubmed" | "clinicaltrials" | "openalex";
 
+export type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | readonly JsonValue[]
+  | { readonly [key: string]: JsonValue };
+
 export type SourceStudyType =
   | "article"
   | "clinical-trial"
@@ -50,7 +58,7 @@ export interface NormalizedRecord {
   readonly doi: string | null;
   readonly status: string | null;
   readonly citationCount: number | null;
-  readonly providerMetadata: Readonly<Record<string, unknown>>;
+  readonly providerMetadata: { readonly [key: string]: JsonValue };
 }
 
 export interface SourceSearchPage {
