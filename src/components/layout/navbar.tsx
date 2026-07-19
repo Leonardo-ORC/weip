@@ -61,18 +61,46 @@ export function Navbar() {
 
 
         <div className="flex items-center gap-3">
-          <Link
-            to="/dashboard"
-            className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline"
-          >
-            Sign in
-          </Link>
-          <Link
-            to="/dashboard"
-            className="hidden items-center justify-center gap-1.5 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-background shadow-soft transition hover:opacity-90 md:inline-flex"
-          >
-            Request early access
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <Link
+                to="/app/dashboard"
+                className="hidden items-center gap-1.5 rounded-full border border-hairline px-4 py-2 text-sm text-foreground transition hover:bg-secondary sm:inline-flex"
+              >
+                <LayoutDashboard className="h-4 w-4" /> Workspace
+              </Link>
+              <Link
+                to="/app/dashboard"
+                aria-label="Open workspace"
+                className="grid h-9 w-9 place-items-center rounded-full bg-ink font-mono text-[11px] font-medium text-background sm:hidden"
+              >
+                {initials}
+              </Link>
+              <button
+                type="button"
+                onClick={() => void signOut()}
+                aria-label="Sign out"
+                className="hidden h-9 w-9 items-center justify-center rounded-full border border-hairline text-muted-foreground transition hover:text-foreground md:inline-flex"
+              >
+                <LogOut className="h-4 w-4" />
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline"
+              >
+                Sign in
+              </Link>
+              <Link
+                to="/register"
+                className="hidden items-center justify-center gap-1.5 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-background shadow-soft transition hover:opacity-90 md:inline-flex"
+              >
+                Request early access
+              </Link>
+            </>
+          )}
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
