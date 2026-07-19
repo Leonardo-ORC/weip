@@ -1,9 +1,14 @@
 import { EVIDENCE_OBJECTS, SAVED_COLLECTIONS } from "../mock";
+import { PubMedImportStore } from "@/features/pubmed/store/import-store";
 import type {
   EvidenceCollection,
   EvidenceFilters,
   EvidenceObject,
 } from "../types";
+
+function allEvidence(): EvidenceObject[] {
+  return [...PubMedImportStore.snapshotEvidence(), ...EVIDENCE_OBJECTS];
+}
 
 export interface IEvidenceService {
   list(): EvidenceObject[];
@@ -38,15 +43,16 @@ export interface IEvidenceCollectionService {
 }
 
 export const EvidenceService: IEvidenceService = {
-  list: () => EVIDENCE_OBJECTS,
-  get: (id) => EVIDENCE_OBJECTS.find((e) => e.id === id),
+  list: () => allEvidence(),
+  get: (id) => allEvidence().find((e) => e.id === id),
   overview: () => {
+    const items = allEvidence();
     const countries = new Set<string>();
     const studyTypes = new Set<string>();
     let trials = 0;
     let labels = 0;
     let publications = 0;
-    for (const e of EVIDENCE_OBJECTS) {
+    for (const e of items) {
       e.population.countries.forEach((c) => countries.add(c));
       studyTypes.add(e.studyDesign);
       if (e.type === "clinical-trial") trials++;
@@ -54,7 +60,7 @@ export const EvidenceService: IEvidenceService = {
       if (e.type !== "drug-label") publications++;
     }
     return {
-      total: EVIDENCE_OBJECTS.length,
+      total: items.length,
       clinicalTrials: trials,
       publications,
       drugLabels: labels,
