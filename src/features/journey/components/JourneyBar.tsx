@@ -1,7 +1,8 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { X, ChevronRight, Info, Sparkles } from "lucide-react";
+import { X, ChevronRight, Info, Sparkles, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { feedback } from "@/lib/feedback";
 import { useJourney, journeyStore } from "../store";
 import { getStep } from "../steps";
@@ -16,6 +17,7 @@ export function JourneyBar() {
   if (!j.active) return null;
 
   const step = getStep(j.currentStep);
+  const focusOn = j.focus;
 
   async function handlePrimary() {
     setBusy(true);
@@ -64,6 +66,7 @@ export function JourneyBar() {
             />
           </div>
           <div className="flex items-center gap-1">
+            <FocusToggle on={focusOn} onToggle={() => journeyStore.toggleFocus()} />
             <button
               type="button"
               onClick={() => setExpanded((v) => !v)}
@@ -84,8 +87,8 @@ export function JourneyBar() {
           </div>
         </div>
 
-        {/* Context + primary action */}
-        {expanded ? (
+        {/* Context + primary action — hidden while Research Focus owns the flow */}
+        {expanded && !focusOn ? (
           <div className="flex flex-col gap-4 px-5 py-4 md:flex-row md:items-center md:justify-between">
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
@@ -117,3 +120,25 @@ export function JourneyBar() {
     </div>
   );
 }
+
+function FocusToggle({ on, onToggle }: { on: boolean; onToggle: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      role="switch"
+      aria-checked={on}
+      title={on ? "Research Focus is on — click to expand workspace" : "Turn Research Focus on"}
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] transition",
+        on
+          ? "border-primary bg-primary/10 text-primary"
+          : "border-hairline bg-background text-muted-foreground hover:text-foreground",
+      )}
+    >
+      {on ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+      Focus {on ? "on" : "off"}
+    </button>
+  );
+}
+
