@@ -13,8 +13,8 @@ import {
   Briefcase,
   Bell,
   UserRound,
-  BookOpenText,
   Radio,
+
 } from "lucide-react";
 
 export interface AppNavItem {
