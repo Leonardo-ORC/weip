@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import type { EvidenceExtraction } from "@/features/extraction/types";
 
 export type EvidenceType =
   | "clinical-trial"
@@ -100,6 +101,8 @@ export interface EvidenceObject {
   tags: string[];
   limitations: string[];
   ontologyLinks: OntologyLink[];
+  /** Structured output of the Evidence Extraction Engine (optional for legacy fixtures). */
+  extraction?: EvidenceExtraction;
 }
 
 export interface EvidenceMetric {
