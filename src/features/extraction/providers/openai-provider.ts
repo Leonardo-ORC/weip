@@ -179,6 +179,9 @@ export const OpenAIExtractionProvider: AiExtractionProvider = {
       entities: toEntitySet(raw, confidence),
       womensHealth: toWomensSet(raw, confidence),
       study: toStudy(raw, confidence),
+      model: response.model,
+      extractedAt: response.extractedAt,
+      confidence,
     };
   },
 };
