@@ -10,11 +10,10 @@ import {
   Cpu,
   Settings2,
   LifeBuoy,
-  Briefcase,
   Bell,
   UserRound,
   Radio,
-
+  GitBranch,
 } from "lucide-react";
 
 export interface AppNavItem {
@@ -30,26 +29,32 @@ export interface AppNavSection {
   items: AppNavItem[];
 }
 
+/**
+ * The sidebar teaches the platform's mental model:
+ *   Sources → Evidence → Graph → Research → Projects
+ *
+ * Primary workflow surfaces receive the highest visual priority.
+ * Supporting tools remain available but do not compete visually.
+ */
 export const APP_NAV_SECTIONS: AppNavSection[] = [
   {
-    title: "Workspace",
+    title: "Primary workflow",
     items: [
-      { label: "Dashboard", to: "/app/dashboard", icon: LayoutDashboard, description: "Overview" },
-      { label: "Workspace", to: "/app/workspace", icon: Briefcase, description: "Your surfaces" },
-      { label: "Projects", to: "/app/projects", icon: FolderKanban, description: "Research programs" },
-      { label: "Collections", to: "/app/collections", icon: Library, description: "Curated evidence" },
+      { label: "Dashboard", to: "/app/dashboard", icon: LayoutDashboard },
+      { label: "Scientific Sources", to: "/app/sources", icon: Radio },
+      { label: "Evidence", to: "/app/evidence", icon: Database },
+      { label: "Knowledge Graph", to: "/app/graph", icon: GitBranch },
+      { label: "Research", to: "/app/research", icon: FlaskConical },
+      { label: "Projects", to: "/app/projects", icon: FolderKanban },
     ],
   },
   {
-    title: "Intelligence",
+    title: "Supporting tools",
     items: [
-      { label: "Evidence", to: "/app/evidence", icon: Database, description: "Scientific sources", badge: "Live" },
-      { label: "Sources", to: "/app/sources", icon: Radio, description: "Unified providers", badge: "Live" },
-      { label: "Knowledge Graph", to: "/app/graph", icon: Network, description: "Semantic network", badge: "Live" },
-      { label: "Ontology", to: "/app/ontology", icon: Network, description: "Clinical concepts", badge: "Soon" },
-      { label: "Research", to: "/app/research", icon: FlaskConical, description: "Discovery tools" },
-      { label: "Pipeline", to: "/app/pipeline", icon: Workflow, description: "Processing" },
-      { label: "Models", to: "/app/models", icon: Cpu, description: "Extraction engines" },
+      { label: "Collections", to: "/app/collections", icon: Library },
+      { label: "Ontology", to: "/app/ontology", icon: Network },
+      { label: "Pipeline", to: "/app/pipeline", icon: Workflow },
+      { label: "Models", to: "/app/models", icon: Cpu },
     ],
   },
 ];
