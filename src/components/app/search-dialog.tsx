@@ -24,6 +24,7 @@ const KIND_ICON = {
 export function SearchTrigger({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { search: entities } = useDashboardData();
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
