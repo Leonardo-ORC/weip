@@ -19,6 +19,7 @@ import type { JourneyStepId } from "../types";
 
 interface CoachSpec {
   selector: string;
+  title: string; // dominant step title
   helper: string; // ≤ 2 sentences
   primaryLabel: string;
 }
@@ -26,42 +27,49 @@ interface CoachSpec {
 const COACH: Record<JourneyStepId, CoachSpec> = {
   sources: {
     selector: '[data-journey-target="sources"]',
+    title: "Import Scientific Studies",
     helper:
       "Import the demonstration studies on metformin in PCOS. WEIP will unify PubMed, ClinicalTrials.gov and OpenAlex before extraction.",
     primaryLabel: "Mark sources imported",
   },
   extraction: {
     selector: '[data-journey-target="extraction"]',
+    title: "Extract Evidence Objects",
     helper:
       "Run the extraction pipeline. Deterministic extractors run first; AI enriches — never replaces — the structured fields.",
     primaryLabel: "Mark extraction complete",
   },
   evidence: {
     selector: '[data-journey-target="evidence"]',
+    title: "Review Evidence Objects",
     helper:
       "Review the canonical Evidence Objects. Every record is typed, comparable and linked back to its source.",
     primaryLabel: "Mark evidence reviewed",
   },
   graph: {
     selector: '[data-journey-target="graph"]',
+    title: "Build Knowledge Graph",
     helper:
       "Explore the semantic relationships built from the evidence. Nodes and edges keep provenance and confidence.",
     primaryLabel: "Mark graph explored",
   },
   intelligence: {
     selector: '[data-journey-target="intelligence"]',
+    title: "Generate Research Intelligence",
     helper:
       "Generate research intelligence. Insights, gaps and trends are traceable to their supporting evidence.",
     primaryLabel: "Mark intelligence generated",
   },
   "drug-score": {
     selector: '[data-journey-target="drug-score"]',
+    title: "Calculate Drug Score",
     helper:
       "Calculate the Women's Drug Score for metformin in PCOS. Coverage, quality and representation compose the final grade.",
     primaryLabel: "Mark score calculated",
   },
   summary: {
     selector: '[data-journey-target="summary"]',
+    title: "Complete Project Summary",
     helper:
       "The full scientific project is ready. Continue using WEIP — every artifact stays available in the workspace.",
     primaryLabel: "Continue using WEIP",
