@@ -10,7 +10,11 @@
  */
 
 import type { EvidenceObject } from "@/features/evidence-explorer";
-import { NormalizedEvidenceMapper } from "../mappers/normalized-to-evidence";
+import {
+  ExtractionOrchestrator,
+  EvidenceObjectBuilder,
+  type EvidenceExtraction,
+} from "@/features/extraction";
 import { ScientificSourceRegistry } from "../registry";
 import { ScientificImportStore } from "../store/import-store";
 import type {
@@ -32,7 +36,8 @@ export const PIPELINE_STAGES: readonly {
   { id: "search", label: "Search", description: "Query every scientific source in parallel." },
   { id: "validate", label: "Validate", description: "Check required metadata and identifiers." },
   { id: "normalize", label: "Normalize", description: "Coerce fields into the unified shape." },
-  { id: "transform", label: "Transform", description: "Map to Evidence Objects." },
+  { id: "extract", label: "Extract", description: "Run the deterministic extraction engine." },
+  { id: "transform", label: "Transform", description: "Assemble canonical Evidence Objects." },
   { id: "store", label: "Store", description: "Persist to the unified in-memory store." },
   { id: "expose", label: "Expose", description: "Publish to the Evidence Workspace." },
 ];
@@ -182,11 +187,29 @@ export async function runIngestionPipeline(
     );
     state = normalized.state;
 
+    const extracted = await runStage<NormalizedRecord[], EvidenceExtraction[]>(
+      state,
+      "extract",
+      normalized.output,
+      async (list) =>
+        Promise.all(list.map((rec) => ExtractionOrchestrator.extract(rec))),
+      emit,
+      (out) => {
+        const ok = out.filter((e) => e.validation.passed).length;
+        return {
+          count: out.length,
+          message: `${ok}/${out.length} extractions passed validation.`,
+        };
+      },
+    );
+    state = extracted.state;
+
     const transformed = await runStage<NormalizedRecord[], EvidenceObject[]>(
       state,
       "transform",
       normalized.output,
-      async (list) => list.map((rec) => NormalizedEvidenceMapper.toEvidence(rec)),
+      async (list) =>
+        list.map((rec, i) => EvidenceObjectBuilder.build(rec, extracted.output[i]!)),
       emit,
       (out) => ({
         count: out.length,
