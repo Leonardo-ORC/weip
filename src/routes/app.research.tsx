@@ -5,6 +5,7 @@ import {
   CoverageHeatmap,
   IntelligenceMetrics,
   IntelligencePanel,
+  ResearchIntelligenceService,
   useIntelligenceMetrics,
 } from "@/features/intelligence";
 
@@ -44,7 +45,7 @@ function ResearchPage() {
           limit={6}
         />
 
-        <CoverageHeatmap />
+        <CoverageHeatmap coverage={ResearchIntelligenceService.areaCoverage()} />
 
         <ResearchWorkspace state={state} />
       </div>
