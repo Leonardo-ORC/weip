@@ -20,6 +20,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EvidencePipelineRouteImport } from './routes/evidence.pipeline'
+import { Route as EvidenceExtractionRouteImport } from './routes/evidence.extraction'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
@@ -76,6 +77,11 @@ const EvidencePipelineRoute = EvidencePipelineRouteImport.update({
   path: '/pipeline',
   getParentRoute: () => EvidenceRoute,
 } as any)
+const EvidenceExtractionRoute = EvidenceExtractionRouteImport.update({
+  id: '/extraction',
+  path: '/extraction',
+  getParentRoute: () => EvidenceRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/platform': typeof PlatformRoute
   '/research': typeof ResearchRoute
   '/settings': typeof SettingsRoute
+  '/evidence/extraction': typeof EvidenceExtractionRoute
   '/evidence/pipeline': typeof EvidencePipelineRoute
 }
 export interface FileRoutesByTo {
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/platform': typeof PlatformRoute
   '/research': typeof ResearchRoute
   '/settings': typeof SettingsRoute
+  '/evidence/extraction': typeof EvidenceExtractionRoute
   '/evidence/pipeline': typeof EvidencePipelineRoute
 }
 export interface FileRoutesById {
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   '/platform': typeof PlatformRoute
   '/research': typeof ResearchRoute
   '/settings': typeof SettingsRoute
+  '/evidence/extraction': typeof EvidenceExtractionRoute
   '/evidence/pipeline': typeof EvidencePipelineRoute
 }
 export interface FileRouteTypes {
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/research'
     | '/settings'
+    | '/evidence/extraction'
     | '/evidence/pipeline'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/research'
     | '/settings'
+    | '/evidence/extraction'
     | '/evidence/pipeline'
   id:
     | '__root__'
@@ -156,6 +167,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/research'
     | '/settings'
+    | '/evidence/extraction'
     | '/evidence/pipeline'
   fileRoutesById: FileRoutesById
 }
@@ -251,14 +263,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EvidencePipelineRouteImport
       parentRoute: typeof EvidenceRoute
     }
+    '/evidence/extraction': {
+      id: '/evidence/extraction'
+      path: '/extraction'
+      fullPath: '/evidence/extraction'
+      preLoaderRoute: typeof EvidenceExtractionRouteImport
+      parentRoute: typeof EvidenceRoute
+    }
   }
 }
 
 interface EvidenceRouteChildren {
+  EvidenceExtractionRoute: typeof EvidenceExtractionRoute
   EvidencePipelineRoute: typeof EvidencePipelineRoute
 }
 
 const EvidenceRouteChildren: EvidenceRouteChildren = {
+  EvidenceExtractionRoute: EvidenceExtractionRoute,
   EvidencePipelineRoute: EvidencePipelineRoute,
 }
 
