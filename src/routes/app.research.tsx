@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppPage } from "@/components/app/app-page";
 import { ResearchWorkspace, useResearchWorkspace } from "@/features/research";
+import { IntelligencePanel } from "@/features/intelligence";
 
 export const Route = createFileRoute("/app/research")({
   head: () => ({
@@ -26,7 +27,16 @@ function ResearchPage() {
       title="Research Workspace"
       subtitle="Your operating system for scientific investigations."
     >
-      <ResearchWorkspace state={state} />
+      <div className="flex flex-col gap-10">
+        <IntelligencePanel
+          surface="research"
+          title="Research intelligence"
+          subtitle="Suggested hypotheses, questions, supporting and conflicting evidence."
+          limit={4}
+        />
+        <ResearchWorkspace state={state} />
+      </div>
     </AppPage>
   );
 }
+
