@@ -5,6 +5,11 @@ import {
   EvidenceWorkspace,
   useEvidenceWorkspace,
 } from "@/features/evidence-explorer";
+import {
+  EvidenceRecommendationList,
+  IntelligencePanel,
+  ResearchIntelligenceService,
+} from "@/features/intelligence";
 
 export const Route = createFileRoute("/app/evidence")({
   head: () => ({
@@ -23,6 +28,10 @@ export const Route = createFileRoute("/app/evidence")({
 
 function EvidencePage() {
   const state = useEvidenceWorkspace();
+  const related = state.selected
+    ? ResearchIntelligenceService.relatedEvidence(state.selected)
+    : [];
+
   return (
     <AppPage
       breadcrumbs={[{ label: "Workspace", to: "/app/dashboard" }, { label: "Evidence" }]}
@@ -31,16 +40,38 @@ function EvidencePage() {
       subtitle="Structured scientific evidence, ready for inspection and comparison."
       contextPanelTitle="Evidence inspector"
       contextPanel={
-        <EvidenceInspector
-          evidence={state.selected}
-          bookmarked={state.selected ? state.bookmarks.includes(state.selected.id) : false}
-          comparing={state.selected ? state.compareIds.includes(state.selected.id) : false}
-          onBookmark={state.toggleBookmark}
-          onCompare={state.toggleCompare}
-        />
+        <div className="flex flex-col gap-6">
+          <EvidenceInspector
+            evidence={state.selected}
+            bookmarked={state.selected ? state.bookmarks.includes(state.selected.id) : false}
+            comparing={state.selected ? state.compareIds.includes(state.selected.id) : false}
+            onBookmark={state.toggleBookmark}
+            onCompare={state.toggleCompare}
+          />
+          {state.selected ? (
+            <div className="px-5 pb-6">
+              <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                Related evidence
+              </div>
+              <EvidenceRecommendationList
+                evidence={related}
+                emptyMessage="No related evidence detected."
+              />
+            </div>
+          ) : null}
+        </div>
       }
     >
-      <EvidenceWorkspace state={state} />
+      <div className="flex flex-col gap-8">
+        <IntelligencePanel
+          surface="evidence"
+          title="Evidence intelligence"
+          subtitle="High-confidence evidence, conflicts and clinical relevance."
+          limit={4}
+        />
+        <EvidenceWorkspace state={state} />
+      </div>
     </AppPage>
   );
 }
+
