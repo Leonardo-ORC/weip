@@ -27,7 +27,6 @@ function greeting() {
 export function CommandCenter({ primaryAction, secondaryAction }: CommandCenterProps) {
   const { profile, user } = useAuth();
   const firstName = profile?.fullName?.split(" ")[0] || user?.email?.split("@")[0] || "researcher";
-  const org = profile?.organization ?? "Independent workspace";
   const today = formatToday();
 
   return (
@@ -41,16 +40,10 @@ export function CommandCenter({ primaryAction, secondaryAction }: CommandCenterP
           <div className="flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
             <CalendarDays className="h-3.5 w-3.5" />
             <span>{today}</span>
-            <span aria-hidden>·</span>
-            <span>Research Command Center</span>
           </div>
           <h1 className="font-display mt-3 text-3xl leading-tight text-foreground lg:text-4xl">
             {greeting()}, {firstName}.
           </h1>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground lg:text-base">
-            {org} · Women&apos;s Hormonal Health workspace. Your scientific environment is calm —
-            8 sources registered, 5 extraction models ready, and the ontology layer arriving next.
-          </p>
         </div>
         <div className="flex flex-wrap items-center gap-2 lg:justify-end">
           {secondaryAction}
