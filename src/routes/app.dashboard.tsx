@@ -19,6 +19,7 @@ import {
 } from "@/features/dashboard";
 import { OntologyReadyWidget } from "@/features/ontology";
 import { EvidenceReadyWidget } from "@/features/evidence-explorer";
+import { ResearchReadyWidget } from "@/features/research";
 
 export const Route = createFileRoute("/app/dashboard")({
   head: () => ({
