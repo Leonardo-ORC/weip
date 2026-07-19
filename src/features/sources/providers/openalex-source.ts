@@ -139,7 +139,10 @@ function normalize(work: OaWork): NormalizedRecord {
     providerMetadata: {
       openalexId: externalId,
       type: work.type ?? null,
-      openAccess: work.open_access ?? null,
+      openAccess: {
+        isOa: work.open_access?.is_oa ?? null,
+        oaStatus: work.open_access?.oa_status ?? null,
+      },
       institutions: Array.from(
         new Set(
           (work.authorships ?? [])
@@ -149,8 +152,8 @@ function normalize(work: OaWork): NormalizedRecord {
         ),
       ),
       concepts: (work.concepts ?? []).slice(0, 8).map((c) => ({
-        name: c.display_name,
-        score: c.score,
+        name: c.display_name ?? null,
+        score: c.score ?? null,
       })),
     },
   };

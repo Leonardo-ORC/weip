@@ -128,21 +128,28 @@ function normalize(study: CtStudy): NormalizedRecord {
     citationCount: null,
     providerMetadata: {
       nctId,
-      phases: p.designModule?.phases ?? [],
+      phases: (p.designModule?.phases ?? []).filter((x): x is string => Boolean(x)),
       studyType: p.designModule?.studyType ?? null,
       allocation: p.designModule?.designInfo?.allocation ?? null,
       interventionModel: p.designModule?.designInfo?.interventionModel ?? null,
       sponsor: sponsor ?? null,
-      conditions,
-      interventions: interventions.map((i) => ({ type: i.type, name: i.name })),
+      conditions: conditions.filter((x): x is string => Boolean(x)),
+      interventions: interventions.map((i) => ({
+        type: i.type ?? null,
+        name: i.name ?? null,
+      })),
       eligibility: {
         sex: p.eligibilityModule?.sex ?? null,
         minimumAge: p.eligibilityModule?.minimumAge ?? null,
         maximumAge: p.eligibilityModule?.maximumAge ?? null,
         healthyVolunteers: p.eligibilityModule?.healthyVolunteers ?? null,
       },
-      primaryOutcomes: primary.map((o) => o.measure).filter(Boolean),
-      secondaryOutcomes: secondary.map((o) => o.measure).filter(Boolean),
+      primaryOutcomes: primary
+        .map((o) => o.measure)
+        .filter((x): x is string => Boolean(x)),
+      secondaryOutcomes: secondary
+        .map((o) => o.measure)
+        .filter((x): x is string => Boolean(x)),
       countries,
       locationCount: locations.length,
     },

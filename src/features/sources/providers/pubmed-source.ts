@@ -56,11 +56,11 @@ function toRecord(
     citationCount: null,
     providerMetadata: {
       pmid: article.pmid,
-      publicationTypes: article.publicationTypes,
-      meshTerms: article.meshTerms,
-      volume: article.journal.volume,
-      issue: article.journal.issue,
-      issn: article.journal.issn,
+      publicationTypes: [...article.publicationTypes],
+      meshTerms: [...article.meshTerms],
+      volume: article.journal.volume ?? null,
+      issue: article.journal.issue ?? null,
+      issn: article.journal.issn ?? null,
     },
   };
 }
