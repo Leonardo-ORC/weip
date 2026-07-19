@@ -128,13 +128,39 @@ export function Navbar() {
                   </Link>
                 ))}
 
-                <div className="mt-6 border-t border-hairline pt-6">
-                  <Link
-                    to="/dashboard"
-                    className="inline-flex w-full items-center justify-center rounded-full bg-ink px-5 py-3 text-sm font-medium text-background"
-                  >
-                    Request early access
-                  </Link>
+                <div className="mt-6 flex flex-col gap-2 border-t border-hairline pt-6">
+                  {isAuthenticated ? (
+                    <>
+                      <Link
+                        to="/app/dashboard"
+                        className="inline-flex w-full items-center justify-center rounded-full bg-ink px-5 py-3 text-sm font-medium text-background"
+                      >
+                        Open workspace
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => void signOut()}
+                        className="inline-flex w-full items-center justify-center rounded-full border border-hairline px-5 py-3 text-sm text-foreground"
+                      >
+                        Sign out
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        to="/register"
+                        className="inline-flex w-full items-center justify-center rounded-full bg-ink px-5 py-3 text-sm font-medium text-background"
+                      >
+                        Request early access
+                      </Link>
+                      <Link
+                        to="/login"
+                        className="inline-flex w-full items-center justify-center rounded-full border border-hairline px-5 py-3 text-sm text-foreground"
+                      >
+                        Sign in
+                      </Link>
+                    </>
+                  )}
                 </div>
               </nav>
             </SheetContent>
