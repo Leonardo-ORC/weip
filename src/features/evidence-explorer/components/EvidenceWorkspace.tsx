@@ -1,6 +1,6 @@
 import { BookMarked, Database, FlaskConical, Globe2, ShieldAlert, Sparkles } from "lucide-react";
 import type { EvidenceMetric } from "../types";
-import { useEvidenceWorkspace } from "../hooks/use-evidence-workspace";
+import type { EvidenceWorkspaceState } from "../hooks/use-evidence-workspace";
 import { EvidenceComparison } from "./EvidenceComparison";
 import { EvidenceFilters } from "./EvidenceFilters";
 import { EvidenceGrid } from "./EvidenceGrid";
@@ -8,8 +8,7 @@ import { EvidenceHeader, EvidenceMetricCard } from "./EvidenceHeader";
 import { EvidenceSearch } from "./EvidenceSearch";
 import { EvidenceTimeline } from "./EvidenceTimeline";
 
-export function EvidenceWorkspace() {
-  const state = useEvidenceWorkspace();
+export function EvidenceWorkspace({ state }: { state: EvidenceWorkspaceState }) {
 
   const metrics: EvidenceMetric[] = [
     { id: "m1", label: "Evidence objects", value: String(state.overview.total), hint: "Structured records", icon: Database },

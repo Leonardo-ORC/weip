@@ -40,7 +40,7 @@ function EvidencePage() {
         />
       }
     >
-      <EvidenceWorkspace />
+      <EvidenceWorkspace state={state} />
     </AppPage>
   );
 }
