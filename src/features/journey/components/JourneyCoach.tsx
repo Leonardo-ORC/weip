@@ -19,6 +19,7 @@ import type { JourneyStepId } from "../types";
 
 interface CoachSpec {
   selector: string;
+  title: string; // dominant step title
   helper: string; // ≤ 2 sentences
   primaryLabel: string;
 }
@@ -26,42 +27,49 @@ interface CoachSpec {
 const COACH: Record<JourneyStepId, CoachSpec> = {
   sources: {
     selector: '[data-journey-target="sources"]',
+    title: "Import Scientific Studies",
     helper:
       "Import the demonstration studies on metformin in PCOS. WEIP will unify PubMed, ClinicalTrials.gov and OpenAlex before extraction.",
     primaryLabel: "Mark sources imported",
   },
   extraction: {
     selector: '[data-journey-target="extraction"]',
+    title: "Extract Evidence Objects",
     helper:
       "Run the extraction pipeline. Deterministic extractors run first; AI enriches — never replaces — the structured fields.",
     primaryLabel: "Mark extraction complete",
   },
   evidence: {
     selector: '[data-journey-target="evidence"]',
+    title: "Review Evidence Objects",
     helper:
       "Review the canonical Evidence Objects. Every record is typed, comparable and linked back to its source.",
     primaryLabel: "Mark evidence reviewed",
   },
   graph: {
     selector: '[data-journey-target="graph"]',
+    title: "Build Knowledge Graph",
     helper:
       "Explore the semantic relationships built from the evidence. Nodes and edges keep provenance and confidence.",
     primaryLabel: "Mark graph explored",
   },
   intelligence: {
     selector: '[data-journey-target="intelligence"]',
+    title: "Generate Research Intelligence",
     helper:
       "Generate research intelligence. Insights, gaps and trends are traceable to their supporting evidence.",
     primaryLabel: "Mark intelligence generated",
   },
   "drug-score": {
     selector: '[data-journey-target="drug-score"]',
+    title: "Calculate Drug Score",
     helper:
       "Calculate the Women's Drug Score for metformin in PCOS. Coverage, quality and representation compose the final grade.",
     primaryLabel: "Mark score calculated",
   },
   summary: {
     selector: '[data-journey-target="summary"]',
+    title: "Complete Project Summary",
     helper:
       "The full scientific project is ready. Continue using WEIP — every artifact stays available in the workspace.",
     primaryLabel: "Continue using WEIP",
@@ -150,7 +158,7 @@ export function JourneyCoach() {
     return (
       <DockedCallout
         stepId={stepId}
-        title={step.objective}
+        title={spec.title}
         helper={spec.helper}
         primaryLabel={onRoute ? spec.primaryLabel : `Open ${step.label}`}
         onPrimary={onRoute ? complete : goToStepRoute}
@@ -159,7 +167,16 @@ export function JourneyCoach() {
   }
 
   // Positioned ring + tooltip
-  return <AnchoredCoach rect={rect} stepId={stepId} helper={spec.helper} primaryLabel={spec.primaryLabel} onPrimary={complete} />;
+  return (
+    <AnchoredCoach
+      rect={rect}
+      stepId={stepId}
+      title={spec.title}
+      helper={spec.helper}
+      primaryLabel={spec.primaryLabel}
+      onPrimary={complete}
+    />
+  );
 }
 
 /* ---------- pieces ---------- */
@@ -167,12 +184,14 @@ export function JourneyCoach() {
 function AnchoredCoach({
   rect,
   stepId,
+  title,
   helper,
   primaryLabel,
   onPrimary,
 }: {
   rect: Rect;
   stepId: JourneyStepId;
+  title: string;
   helper: string;
   primaryLabel: string;
   onPrimary: () => void;
@@ -181,16 +200,16 @@ function AnchoredCoach({
   const stepNumber = step.index;
   const total = JOURNEY_STEPS.length;
 
-  // Position the tooltip: below by default, above if not enough room.
+  // Position the card: below by default, above if not enough room.
   const vw = typeof window !== "undefined" ? window.innerWidth : 1200;
   const vh = typeof window !== "undefined" ? window.innerHeight : 800;
-  const tooltipW = Math.min(360, vw - 32);
+  const tooltipW = Math.min(480, vw - 32);
   const spaceBelow = vh - (rect.top + rect.height);
-  const placeAbove = spaceBelow < 220 && rect.top > 240;
+  const placeAbove = spaceBelow < 260 && rect.top > 260;
 
   const tooltipTop = placeAbove
-    ? Math.max(16, rect.top - 12 - 180)
-    : Math.min(vh - 200, rect.top + rect.height + 12);
+    ? Math.max(16, rect.top - 12 - 240)
+    : Math.min(vh - 240, rect.top + rect.height + 12);
   const tooltipLeft = Math.max(
     16,
     Math.min(vw - tooltipW - 16, rect.left + rect.width / 2 - tooltipW / 2),
@@ -222,46 +241,73 @@ function AnchoredCoach({
           boxShadow: "0 0 0 3px hsl(var(--primary) / 0.35)",
         }}
       />
-      {/* Callout */}
+      {/* Context Card */}
       <div
         role="status"
         aria-live="polite"
         className="pointer-events-auto fixed z-40 animate-fade-in"
         style={{ top: tooltipTop, left: tooltipLeft, width: tooltipW }}
       >
-        <div className="overflow-hidden rounded-2xl border border-hairline bg-background/95 shadow-elevated backdrop-blur-xl">
-          <div className="flex items-center justify-between gap-2 border-b border-hairline px-4 py-2">
-            <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              <Sparkles className="h-3 w-3 text-primary" />
-              Step {stepNumber} of {total} · {step.label}
-            </div>
-            <button
-              type="button"
-              onClick={() => journeyStore.exit()}
-              className="rounded-full p-1 text-muted-foreground transition hover:text-foreground"
-              aria-label="Pause guided journey"
-              title="Pause — progress is saved"
-            >
-              <X className="h-3 w-3" />
-            </button>
-          </div>
-          <div className="p-4">
-            <h3 className="font-display text-sm leading-snug text-foreground">
-              {step.objective}
-            </h3>
-            <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-              {helper}
-            </p>
-            <div className="mt-3 flex justify-end">
-              <Button size="sm" onClick={onPrimary} className="gap-2">
-                {primaryLabel}
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Button>
-            </div>
-          </div>
-        </div>
+        <JourneyContextCard
+          stepNumber={stepNumber}
+          total={total}
+          title={title}
+          helper={helper}
+          primaryLabel={primaryLabel}
+          onPrimary={onPrimary}
+        />
       </div>
     </>
+  );
+}
+
+function JourneyContextCard({
+  stepNumber,
+  total,
+  title,
+  helper,
+  primaryLabel,
+  onPrimary,
+}: {
+  stepNumber: number;
+  total: number;
+  title: string;
+  helper: string;
+  primaryLabel: string;
+  onPrimary: () => void;
+}) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-hairline bg-surface-elevated/98 shadow-[0_24px_80px_-24px_color-mix(in_oklab,var(--indigo)_28%,transparent)] backdrop-blur-xl">
+      <div className="flex items-center justify-between gap-3 border-b border-hairline px-6 py-3">
+        <div className="flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/70">
+          <Sparkles className="h-3.5 w-3.5 text-primary" />
+          Step {stepNumber} of {total}
+        </div>
+        <button
+          type="button"
+          onClick={() => journeyStore.exit()}
+          className="rounded-full p-1.5 text-muted-foreground transition hover:text-foreground"
+          aria-label="Pause guided journey"
+          title="Pause — progress is saved"
+        >
+          <X className="h-3.5 w-3.5" />
+        </button>
+      </div>
+      <div className="p-6">
+        <h3 className="font-sans text-2xl font-semibold leading-tight tracking-tight text-foreground text-balance">
+          {title}
+        </h3>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground text-balance">
+          {helper}
+        </p>
+        <div className="mt-6 flex justify-end">
+          <Button size="sm" onClick={onPrimary} className="gap-2">
+            {primaryLabel}
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -285,32 +331,15 @@ function DockedCallout({
       aria-live="polite"
       className="pointer-events-none fixed inset-x-0 bottom-24 z-40 flex justify-end px-4 animate-fade-in"
     >
-      <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-2xl border border-hairline bg-background/95 shadow-elevated backdrop-blur-xl">
-        <div className="flex items-center justify-between gap-2 border-b border-hairline px-4 py-2">
-          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-            <Sparkles className="h-3 w-3 text-primary" />
-            Step {step.index} of {JOURNEY_STEPS.length} · {step.label}
-          </div>
-          <button
-            type="button"
-            onClick={() => journeyStore.exit()}
-            className="rounded-full p-1 text-muted-foreground transition hover:text-foreground"
-            aria-label="Pause guided journey"
-            title="Pause — progress is saved"
-          >
-            <X className="h-3 w-3" />
-          </button>
-        </div>
-        <div className="p-4">
-          <h3 className="font-display text-sm leading-snug text-foreground">{title}</h3>
-          <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{helper}</p>
-          <div className="mt-3 flex justify-end">
-            <Button size="sm" onClick={onPrimary} className="gap-2">
-              {primaryLabel}
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Button>
-          </div>
-        </div>
+      <div className="pointer-events-auto w-full max-w-md">
+        <JourneyContextCard
+          stepNumber={step.index}
+          total={JOURNEY_STEPS.length}
+          title={title}
+          helper={helper}
+          primaryLabel={primaryLabel}
+          onPrimary={onPrimary}
+        />
       </div>
     </div>
   );
