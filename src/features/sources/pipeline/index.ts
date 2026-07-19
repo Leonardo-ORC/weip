@@ -192,7 +192,11 @@ export async function runIngestionPipeline(
       "extract",
       normalized.output,
       async (list) =>
-        Promise.all(list.map((rec) => ExtractionOrchestrator.extract(rec))),
+        Promise.all(
+          list.map((rec) =>
+            ExtractionOrchestrator.extract(rec, { aiProviderId: "openai" }),
+          ),
+        ),
       emit,
       (out) => {
         const ok = out.filter((e) => e.validation.passed).length;
