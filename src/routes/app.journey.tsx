@@ -45,7 +45,7 @@ function JourneyPage() {
       {!j.active && j.completed.length === 0 ? (
         <JourneyEntryCard variant="dashboard" />
       ) : j.currentStep === "drug-score" ? (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6" data-journey-target="drug-score">
           <DrugScorePanel />
           <ContinueRow
             label="Continue to project summary"
@@ -56,7 +56,7 @@ function JourneyPage() {
           />
         </div>
       ) : j.currentStep === "summary" || j.isComplete ? (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6" data-journey-target="summary">
           <ProjectSummaryPanel />
           <div className="flex flex-wrap items-center gap-3">
             <Button
