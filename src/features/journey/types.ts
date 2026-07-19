@@ -24,4 +24,5 @@ export interface JourneyState {
   currentStep: JourneyStepId;
   completed: JourneyStepId[];
   startedAt: string | null;
+  focus: boolean;
 }
