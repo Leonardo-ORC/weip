@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { ScientificSearchBar } from "./ScientificSearchBar";
 import { UnifiedSearchResults } from "./UnifiedSearchResults";
 import { UnifiedPipelineStatus } from "./UnifiedPipelineStatus";
@@ -81,14 +82,16 @@ export function ScientificSourcesWorkspace() {
               {selected.length} record{selected.length === 1 ? "" : "s"} selected
             </h3>
           </header>
-          <button
+          <Button
             type="button"
-            disabled={ingestion.pending || selected.length === 0}
+            className="w-full rounded-full"
+            disabled={selected.length === 0}
+            loading={ingestion.pending}
+            loadingText="Ingesting evidence…"
             onClick={runImport}
-            className="w-full rounded-full bg-ink px-4 py-2 text-sm font-medium text-background shadow-soft transition disabled:opacity-50"
           >
-            {ingestion.pending ? "Processing…" : "Ingest into Evidence"}
-          </button>
+            Ingest into Evidence
+          </Button>
           <div className="mt-4">
             <SourceStatistics counts={imports.totals.perSource} />
           </div>

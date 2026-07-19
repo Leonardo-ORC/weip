@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
+import { feedback } from "@/lib/feedback";
 import {
   EMPTY_FILTERS,
   EvidenceCollectionService,
@@ -96,14 +97,30 @@ export function useEvidenceWorkspace() {
   const selectEvidence = useCallback((id: string) => setSelectedId(id), []);
 
   const toggleCompare = useCallback((id: string) => {
-    setCompareIds((prev) =>
-      prev.includes(id) ? prev.filter((p) => p !== id) : prev.length >= 3 ? prev : [...prev, id],
-    );
+    setCompareIds((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((p) => p !== id);
+      }
+      if (prev.length >= 3) {
+        feedback.info("Comparison is limited to 3 records", "Remove one to add another.");
+        return prev;
+      }
+      const next = [...prev, id];
+      if (next.length === 3) {
+        feedback.success("Ready to compare", "3 evidence records selected.");
+      }
+      return next;
+    });
   }, []);
   const clearCompare = useCallback(() => setCompareIds([]), []);
 
   const toggleBookmark = useCallback((id: string) => {
-    setBookmarks((prev) => (prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]));
+    setBookmarks((prev) => {
+      const isAdding = !prev.includes(id);
+      const next = isAdding ? [...prev, id] : prev.filter((p) => p !== id);
+      feedback.success(isAdding ? "Bookmarked" : "Bookmark removed");
+      return next;
+    });
   }, []);
 
   const activeFilterCount =
