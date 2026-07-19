@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { feedback } from "@/lib/feedback";
 import { UnifiedSearchClient } from "../services";
 import { createInitialRun, runIngestionPipeline } from "../pipeline";
 import type {
@@ -22,6 +23,7 @@ export function useUnifiedIngestion() {
     setPending(true);
     setLastImported(0);
     setState(createInitialRun());
+    const toastId = feedback.loading("Ingesting evidence…", "Searching scientific sources.");
     try {
       const result = await runIngestionPipeline({
         onUpdate: (s) => setState(s),
@@ -30,7 +32,19 @@ export function useUnifiedIngestion() {
       setState(result.state);
       setLastImported(result.imported);
       setLastPerSource(result.state.perSource);
+      feedback.dismiss(toastId);
+      feedback.success(
+        `${result.imported} evidence record${result.imported === 1 ? "" : "s"} ingested`,
+        "Records are now available in the Evidence workspace.",
+      );
       return result;
+    } catch (err) {
+      feedback.dismiss(toastId);
+      feedback.error(
+        "Ingestion failed",
+        "We couldn't finish ingesting these records. This is usually a temporary connectivity issue.",
+      );
+      throw err;
     } finally {
       setPending(false);
     }

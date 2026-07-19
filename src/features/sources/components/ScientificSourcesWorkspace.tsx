@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { ScientificSearchBar } from "./ScientificSearchBar";
 import { UnifiedSearchResults } from "./UnifiedSearchResults";
 import { UnifiedPipelineStatus } from "./UnifiedPipelineStatus";
