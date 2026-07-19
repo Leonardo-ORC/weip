@@ -1,10 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { LayoutDashboard, LogOut, Menu, X } from "lucide-react";
 import { PRIMARY_NAV } from "@/constants/navigation";
 import { WeipMark } from "./weip-mark";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@/components/common/visually-hidden";
+import { useAuth } from "@/features/auth";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
