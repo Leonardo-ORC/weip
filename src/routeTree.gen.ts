@@ -38,6 +38,7 @@ import { Route as AppPipelineRouteImport } from './routes/app.pipeline'
 import { Route as AppOntologyRouteImport } from './routes/app.ontology'
 import { Route as AppNotificationsRouteImport } from './routes/app.notifications'
 import { Route as AppModelsRouteImport } from './routes/app.models'
+import { Route as AppJourneyRouteImport } from './routes/app.journey'
 import { Route as AppHelpRouteImport } from './routes/app.help'
 import { Route as AppGraphRouteImport } from './routes/app.graph'
 import { Route as AppEvidenceRouteImport } from './routes/app.evidence'
@@ -189,6 +190,11 @@ const AppModelsRoute = AppModelsRouteImport.update({
   path: '/models',
   getParentRoute: () => AppRoute,
 } as any)
+const AppJourneyRoute = AppJourneyRouteImport.update({
+  id: '/journey',
+  path: '/journey',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppHelpRoute = AppHelpRouteImport.update({
   id: '/help',
   path: '/help',
@@ -236,6 +242,7 @@ export interface FileRoutesByFullPath {
   '/app/evidence': typeof AppEvidenceRoute
   '/app/graph': typeof AppGraphRoute
   '/app/help': typeof AppHelpRoute
+  '/app/journey': typeof AppJourneyRoute
   '/app/models': typeof AppModelsRoute
   '/app/notifications': typeof AppNotificationsRoute
   '/app/ontology': typeof AppOntologyRoute
@@ -271,6 +278,7 @@ export interface FileRoutesByTo {
   '/app/evidence': typeof AppEvidenceRoute
   '/app/graph': typeof AppGraphRoute
   '/app/help': typeof AppHelpRoute
+  '/app/journey': typeof AppJourneyRoute
   '/app/models': typeof AppModelsRoute
   '/app/notifications': typeof AppNotificationsRoute
   '/app/ontology': typeof AppOntologyRoute
@@ -308,6 +316,7 @@ export interface FileRoutesById {
   '/app/evidence': typeof AppEvidenceRoute
   '/app/graph': typeof AppGraphRoute
   '/app/help': typeof AppHelpRoute
+  '/app/journey': typeof AppJourneyRoute
   '/app/models': typeof AppModelsRoute
   '/app/notifications': typeof AppNotificationsRoute
   '/app/ontology': typeof AppOntologyRoute
@@ -346,6 +355,7 @@ export interface FileRouteTypes {
     | '/app/evidence'
     | '/app/graph'
     | '/app/help'
+    | '/app/journey'
     | '/app/models'
     | '/app/notifications'
     | '/app/ontology'
@@ -381,6 +391,7 @@ export interface FileRouteTypes {
     | '/app/evidence'
     | '/app/graph'
     | '/app/help'
+    | '/app/journey'
     | '/app/models'
     | '/app/notifications'
     | '/app/ontology'
@@ -417,6 +428,7 @@ export interface FileRouteTypes {
     | '/app/evidence'
     | '/app/graph'
     | '/app/help'
+    | '/app/journey'
     | '/app/models'
     | '/app/notifications'
     | '/app/ontology'
@@ -656,6 +668,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppModelsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/journey': {
+      id: '/app/journey'
+      path: '/journey'
+      fullPath: '/app/journey'
+      preLoaderRoute: typeof AppJourneyRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/help': {
       id: '/app/help'
       path: '/help'
@@ -700,6 +719,7 @@ interface AppRouteChildren {
   AppEvidenceRoute: typeof AppEvidenceRoute
   AppGraphRoute: typeof AppGraphRoute
   AppHelpRoute: typeof AppHelpRoute
+  AppJourneyRoute: typeof AppJourneyRoute
   AppModelsRoute: typeof AppModelsRoute
   AppNotificationsRoute: typeof AppNotificationsRoute
   AppOntologyRoute: typeof AppOntologyRoute
@@ -720,6 +740,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppEvidenceRoute: AppEvidenceRoute,
   AppGraphRoute: AppGraphRoute,
   AppHelpRoute: AppHelpRoute,
+  AppJourneyRoute: AppJourneyRoute,
   AppModelsRoute: AppModelsRoute,
   AppNotificationsRoute: AppNotificationsRoute,
   AppOntologyRoute: AppOntologyRoute,
@@ -770,13 +791,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
