@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Search, ArrowRight, Command } from "lucide-react";
+import { Search, ArrowRight, Command, FolderKanban, Library, Layers, Activity } from "lucide-react";
 import {
   CommandDialog,
   CommandEmpty,
@@ -12,10 +12,19 @@ import {
 import { APP_NAV_SECTIONS } from "@/constants/app-navigation";
 import { useNavigate } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
+import { useDashboardData } from "@/features/dashboard";
+
+const KIND_ICON = {
+  project: FolderKanban,
+  collection: Library,
+  module: Layers,
+  activity: Activity,
+} as const;
 
 export function SearchTrigger({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { search: entities } = useDashboardData();
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -69,6 +78,33 @@ export function SearchTrigger({ className }: { className?: string }) {
               ))}
             </CommandGroup>
           ))}
+          <CommandSeparator />
+          {(["project", "collection", "module", "activity"] as const).map((kind) => {
+            const rows = entities.filter((e) => e.kind === kind);
+            if (rows.length === 0) return null;
+            const Icon = KIND_ICON[kind];
+            const heading = kind.charAt(0).toUpperCase() + kind.slice(1) + "s";
+            return (
+              <CommandGroup key={kind} heading={heading}>
+                {rows.map((r) => (
+                  <CommandItem
+                    key={`${kind}-${r.id}`}
+                    value={`${r.title} ${r.subtitle ?? ""}`}
+                    onSelect={() => {
+                      setOpen(false);
+                      if (r.to) navigate({ to: r.to as never });
+                    }}
+                  >
+                    <Icon className="mr-2 h-4 w-4" />
+                    <span className="truncate">{r.title}</span>
+                    {r.subtitle ? (
+                      <span className="ml-auto text-xs text-muted-foreground">{r.subtitle}</span>
+                    ) : null}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            );
+          })}
           <CommandSeparator />
           <CommandGroup heading="Quick actions">
             <CommandItem onSelect={() => setOpen(false)}>
