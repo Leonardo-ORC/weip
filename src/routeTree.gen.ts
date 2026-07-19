@@ -11,16 +11,34 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ResearchRouteImport } from './routes/research'
+import { Route as RegisterRouteImport } from './routes/register'
 import { Route as PlatformRouteImport } from './routes/platform'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as EvidenceRouteImport } from './routes/evidence'
 import { Route as DevelopersRouteImport } from './routes/developers'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ApplicationsRouteImport } from './routes/applications'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as EvidencePipelineRouteImport } from './routes/evidence.pipeline'
 import { Route as EvidenceExtractionRouteImport } from './routes/evidence.extraction'
+import { Route as AppWorkspaceRouteImport } from './routes/app.workspace'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppResearchRouteImport } from './routes/app.research'
+import { Route as AppProjectsRouteImport } from './routes/app.projects'
+import { Route as AppProfileRouteImport } from './routes/app.profile'
+import { Route as AppPipelineRouteImport } from './routes/app.pipeline'
+import { Route as AppOntologyRouteImport } from './routes/app.ontology'
+import { Route as AppNotificationsRouteImport } from './routes/app.notifications'
+import { Route as AppModelsRouteImport } from './routes/app.models'
+import { Route as AppHelpRouteImport } from './routes/app.help'
+import { Route as AppEvidenceRouteImport } from './routes/app.evidence'
+import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
+import { Route as AppCollectionsRouteImport } from './routes/app.collections'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
@@ -32,9 +50,24 @@ const ResearchRoute = ResearchRouteImport.update({
   path: '/research',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlatformRoute = PlatformRouteImport.update({
   id: '/platform',
   path: '/platform',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EvidenceRoute = EvidenceRouteImport.update({
@@ -57,6 +90,11 @@ const ApplicationsRoute = ApplicationsRouteImport.update({
   path: '/applications',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -72,6 +110,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
 const EvidencePipelineRoute = EvidencePipelineRouteImport.update({
   id: '/pipeline',
   path: '/pipeline',
@@ -82,20 +125,103 @@ const EvidenceExtractionRoute = EvidenceExtractionRouteImport.update({
   path: '/extraction',
   getParentRoute: () => EvidenceRoute,
 } as any)
+const AppWorkspaceRoute = AppWorkspaceRouteImport.update({
+  id: '/workspace',
+  path: '/workspace',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppResearchRoute = AppResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProjectsRoute = AppProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPipelineRoute = AppPipelineRouteImport.update({
+  id: '/pipeline',
+  path: '/pipeline',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppOntologyRoute = AppOntologyRouteImport.update({
+  id: '/ontology',
+  path: '/ontology',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNotificationsRoute = AppNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppModelsRoute = AppModelsRouteImport.update({
+  id: '/models',
+  path: '/models',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHelpRoute = AppHelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEvidenceRoute = AppEvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCollectionsRoute = AppCollectionsRouteImport.update({
+  id: '/collections',
+  path: '/collections',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
+  '/app': typeof AppRouteWithChildren
   '/applications': typeof ApplicationsRoute
   '/dashboard': typeof DashboardRoute
   '/developers': typeof DevelopersRoute
   '/evidence': typeof EvidenceRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
   '/platform': typeof PlatformRoute
+  '/register': typeof RegisterRoute
   '/research': typeof ResearchRoute
   '/settings': typeof SettingsRoute
+  '/app/collections': typeof AppCollectionsRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/evidence': typeof AppEvidenceRoute
+  '/app/help': typeof AppHelpRoute
+  '/app/models': typeof AppModelsRoute
+  '/app/notifications': typeof AppNotificationsRoute
+  '/app/ontology': typeof AppOntologyRoute
+  '/app/pipeline': typeof AppPipelineRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/projects': typeof AppProjectsRoute
+  '/app/research': typeof AppResearchRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/workspace': typeof AppWorkspaceRoute
   '/evidence/extraction': typeof EvidenceExtractionRoute
   '/evidence/pipeline': typeof EvidencePipelineRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -105,26 +231,61 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/developers': typeof DevelopersRoute
   '/evidence': typeof EvidenceRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
   '/platform': typeof PlatformRoute
+  '/register': typeof RegisterRoute
   '/research': typeof ResearchRoute
   '/settings': typeof SettingsRoute
+  '/app/collections': typeof AppCollectionsRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/evidence': typeof AppEvidenceRoute
+  '/app/help': typeof AppHelpRoute
+  '/app/models': typeof AppModelsRoute
+  '/app/notifications': typeof AppNotificationsRoute
+  '/app/ontology': typeof AppOntologyRoute
+  '/app/pipeline': typeof AppPipelineRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/projects': typeof AppProjectsRoute
+  '/app/research': typeof AppResearchRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/workspace': typeof AppWorkspaceRoute
   '/evidence/extraction': typeof EvidenceExtractionRoute
   '/evidence/pipeline': typeof EvidencePipelineRoute
+  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
+  '/app': typeof AppRouteWithChildren
   '/applications': typeof ApplicationsRoute
   '/dashboard': typeof DashboardRoute
   '/developers': typeof DevelopersRoute
   '/evidence': typeof EvidenceRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
   '/platform': typeof PlatformRoute
+  '/register': typeof RegisterRoute
   '/research': typeof ResearchRoute
   '/settings': typeof SettingsRoute
+  '/app/collections': typeof AppCollectionsRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/evidence': typeof AppEvidenceRoute
+  '/app/help': typeof AppHelpRoute
+  '/app/models': typeof AppModelsRoute
+  '/app/notifications': typeof AppNotificationsRoute
+  '/app/ontology': typeof AppOntologyRoute
+  '/app/pipeline': typeof AppPipelineRoute
+  '/app/profile': typeof AppProfileRoute
+  '/app/projects': typeof AppProjectsRoute
+  '/app/research': typeof AppResearchRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/workspace': typeof AppWorkspaceRoute
   '/evidence/extraction': typeof EvidenceExtractionRoute
   '/evidence/pipeline': typeof EvidencePipelineRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -132,15 +293,33 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
+    | '/app'
     | '/applications'
     | '/dashboard'
     | '/developers'
     | '/evidence'
+    | '/forgot-password'
+    | '/login'
     | '/platform'
+    | '/register'
     | '/research'
     | '/settings'
+    | '/app/collections'
+    | '/app/dashboard'
+    | '/app/evidence'
+    | '/app/help'
+    | '/app/models'
+    | '/app/notifications'
+    | '/app/ontology'
+    | '/app/pipeline'
+    | '/app/profile'
+    | '/app/projects'
+    | '/app/research'
+    | '/app/settings'
+    | '/app/workspace'
     | '/evidence/extraction'
     | '/evidence/pipeline'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -150,36 +329,75 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/developers'
     | '/evidence'
+    | '/forgot-password'
+    | '/login'
     | '/platform'
+    | '/register'
     | '/research'
     | '/settings'
+    | '/app/collections'
+    | '/app/dashboard'
+    | '/app/evidence'
+    | '/app/help'
+    | '/app/models'
+    | '/app/notifications'
+    | '/app/ontology'
+    | '/app/pipeline'
+    | '/app/profile'
+    | '/app/projects'
+    | '/app/research'
+    | '/app/settings'
+    | '/app/workspace'
     | '/evidence/extraction'
     | '/evidence/pipeline'
+    | '/app'
   id:
     | '__root__'
     | '/'
     | '/$'
     | '/about'
+    | '/app'
     | '/applications'
     | '/dashboard'
     | '/developers'
     | '/evidence'
+    | '/forgot-password'
+    | '/login'
     | '/platform'
+    | '/register'
     | '/research'
     | '/settings'
+    | '/app/collections'
+    | '/app/dashboard'
+    | '/app/evidence'
+    | '/app/help'
+    | '/app/models'
+    | '/app/notifications'
+    | '/app/ontology'
+    | '/app/pipeline'
+    | '/app/profile'
+    | '/app/projects'
+    | '/app/research'
+    | '/app/settings'
+    | '/app/workspace'
     | '/evidence/extraction'
     | '/evidence/pipeline'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   AboutRoute: typeof AboutRoute
+  AppRoute: typeof AppRouteWithChildren
   ApplicationsRoute: typeof ApplicationsRoute
   DashboardRoute: typeof DashboardRoute
   DevelopersRoute: typeof DevelopersRoute
   EvidenceRoute: typeof EvidenceRouteWithChildren
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  LoginRoute: typeof LoginRoute
   PlatformRoute: typeof PlatformRoute
+  RegisterRoute: typeof RegisterRoute
   ResearchRoute: typeof ResearchRoute
   SettingsRoute: typeof SettingsRoute
 }
@@ -200,11 +418,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/platform': {
       id: '/platform'
       path: '/platform'
       fullPath: '/platform'
       preLoaderRoute: typeof PlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/evidence': {
@@ -235,6 +474,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApplicationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -256,6 +502,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/evidence/pipeline': {
       id: '/evidence/pipeline'
       path: '/pipeline'
@@ -270,8 +523,135 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EvidenceExtractionRouteImport
       parentRoute: typeof EvidenceRoute
     }
+    '/app/workspace': {
+      id: '/app/workspace'
+      path: '/workspace'
+      fullPath: '/app/workspace'
+      preLoaderRoute: typeof AppWorkspaceRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/research': {
+      id: '/app/research'
+      path: '/research'
+      fullPath: '/app/research'
+      preLoaderRoute: typeof AppResearchRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/projects': {
+      id: '/app/projects'
+      path: '/projects'
+      fullPath: '/app/projects'
+      preLoaderRoute: typeof AppProjectsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/profile': {
+      id: '/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/pipeline': {
+      id: '/app/pipeline'
+      path: '/pipeline'
+      fullPath: '/app/pipeline'
+      preLoaderRoute: typeof AppPipelineRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/ontology': {
+      id: '/app/ontology'
+      path: '/ontology'
+      fullPath: '/app/ontology'
+      preLoaderRoute: typeof AppOntologyRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/notifications': {
+      id: '/app/notifications'
+      path: '/notifications'
+      fullPath: '/app/notifications'
+      preLoaderRoute: typeof AppNotificationsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/models': {
+      id: '/app/models'
+      path: '/models'
+      fullPath: '/app/models'
+      preLoaderRoute: typeof AppModelsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/help': {
+      id: '/app/help'
+      path: '/help'
+      fullPath: '/app/help'
+      preLoaderRoute: typeof AppHelpRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/evidence': {
+      id: '/app/evidence'
+      path: '/evidence'
+      fullPath: '/app/evidence'
+      preLoaderRoute: typeof AppEvidenceRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/dashboard': {
+      id: '/app/dashboard'
+      path: '/dashboard'
+      fullPath: '/app/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/collections': {
+      id: '/app/collections'
+      path: '/collections'
+      fullPath: '/app/collections'
+      preLoaderRoute: typeof AppCollectionsRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
+
+interface AppRouteChildren {
+  AppCollectionsRoute: typeof AppCollectionsRoute
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppEvidenceRoute: typeof AppEvidenceRoute
+  AppHelpRoute: typeof AppHelpRoute
+  AppModelsRoute: typeof AppModelsRoute
+  AppNotificationsRoute: typeof AppNotificationsRoute
+  AppOntologyRoute: typeof AppOntologyRoute
+  AppPipelineRoute: typeof AppPipelineRoute
+  AppProfileRoute: typeof AppProfileRoute
+  AppProjectsRoute: typeof AppProjectsRoute
+  AppResearchRoute: typeof AppResearchRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppWorkspaceRoute: typeof AppWorkspaceRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppCollectionsRoute: AppCollectionsRoute,
+  AppDashboardRoute: AppDashboardRoute,
+  AppEvidenceRoute: AppEvidenceRoute,
+  AppHelpRoute: AppHelpRoute,
+  AppModelsRoute: AppModelsRoute,
+  AppNotificationsRoute: AppNotificationsRoute,
+  AppOntologyRoute: AppOntologyRoute,
+  AppPipelineRoute: AppPipelineRoute,
+  AppProfileRoute: AppProfileRoute,
+  AppProjectsRoute: AppProjectsRoute,
+  AppResearchRoute: AppResearchRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppWorkspaceRoute: AppWorkspaceRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 interface EvidenceRouteChildren {
   EvidenceExtractionRoute: typeof EvidenceExtractionRoute
@@ -291,11 +671,15 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   AboutRoute: AboutRoute,
+  AppRoute: AppRouteWithChildren,
   ApplicationsRoute: ApplicationsRoute,
   DashboardRoute: DashboardRoute,
   DevelopersRoute: DevelopersRoute,
   EvidenceRoute: EvidenceRouteWithChildren,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  LoginRoute: LoginRoute,
   PlatformRoute: PlatformRoute,
+  RegisterRoute: RegisterRoute,
   ResearchRoute: ResearchRoute,
   SettingsRoute: SettingsRoute,
 }
