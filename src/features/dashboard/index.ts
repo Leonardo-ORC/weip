@@ -3,6 +3,8 @@ export { useDashboardData } from "./hooks/use-dashboard-data";
 export { DashboardWidget, WidgetHeader } from "./components/widget";
 export { CommandCenter } from "./components/command-center";
 export { QuickActions } from "./components/quick-actions";
+export { ResearchJourney } from "./components/research-journey";
+export { NextAction } from "./components/next-action";
 export { PlatformStatusCard, PlatformStatusGrid } from "./components/platform-status-card";
 export { HealthCard, HealthList } from "./components/health-card";
 export { InsightCard, InsightsPanel } from "./components/insight-card";

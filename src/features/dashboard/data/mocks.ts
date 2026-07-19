@@ -108,14 +108,14 @@ export const INSIGHTS: InsightItem[] = [
   { id: "i6", label: "Collections", value: "12", hint: "Curated sets", icon: Library },
 ];
 
+/**
+ * Quick actions support the current workflow stage.
+ * Keep this list short — the Next Action card carries the primary emphasis.
+ */
 export const QUICK_ACTIONS: QuickAction[] = [
-  { id: "qa1", title: "Browse Evidence", description: "Explore the scientific source catalog.", icon: Database, to: "/app/evidence", hint: "8 providers" },
-  { id: "qa2", title: "Explore Ontology", description: "Structured clinical concepts.", icon: Network, to: "/app/ontology", hint: "Soon" },
-  { id: "qa3", title: "Open Pipeline", description: "Ingestion & processing stages.", icon: Workflow, to: "/app/pipeline", hint: "8 stages" },
-  { id: "qa4", title: "New Project", description: "Start a new research program.", icon: Plus, to: "/app/projects" },
-  { id: "qa5", title: "Open Collections", description: "Curated scientific evidence.", icon: Library, to: "/app/collections" },
-  { id: "qa6", title: "View Research", description: "Discovery tools and hypotheses.", icon: FlaskConical, to: "/app/research" },
-  { id: "qa7", title: "AI Assistant", description: "Research copilot — coming soon.", icon: Bot, to: "/app/models", hint: "Soon" },
+  { id: "qa1", title: "Import from a source", description: "Pull new studies into the workspace.", icon: Radio, to: "/app/sources" },
+  { id: "qa2", title: "Explore the graph", description: "See how concepts connect.", icon: GitBranch, to: "/app/graph" },
+  { id: "qa3", title: "Continue a project", description: "Jump back into ongoing research.", icon: FolderKanban, to: "/app/projects" },
 ];
 
 export const PIPELINE_NODES: PipelineNode[] = [
